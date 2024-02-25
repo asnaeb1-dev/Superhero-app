@@ -10,9 +10,8 @@ import Menu from '../Menu/Menu';
 const Navbar = ({ superheroList, getNavItem, currentNavItem }) => {
     const { searchText, setSearchText} = useContext(SuperHeroAppContext);
     const [menuOpen, setMenuOpen] = useState(false);
-    console.log("current-", currentNavItem);
     return (
-        <nav onClick={(e) => getNavItem(e.target.id)} className='flex-col p-4 flex sm:flex-row items-center gap-6'>
+        <nav className='flex-col p-4 flex sm:flex-row items-center gap-6'>
             <div className='flex flex-1 flex-row item w-full'>
                 <div className=' flex flex-row flex-1'>
                     <h1 className='text-white text-3xl'>{APP_TITLE_P1}</h1>
@@ -24,7 +23,7 @@ const Navbar = ({ superheroList, getNavItem, currentNavItem }) => {
             </div>
 
             <div className='hidden flex-[2] justify-end sm:flex'>
-                <ul className='flex flex-row text-white justify-between gap-5 font-bold text-lg lg:gap-10'>
+                <ul onClick={(e) => getNavItem(e.target.id)} className='flex flex-row text-white justify-between gap-5 font-bold text-lg lg:gap-10'>
                     <li id='superhero_nav' className={currentNavItem === NAV_ITEM_SUPERHERO ? "cursor-pointer text-red-600 underline underline-offset-8" :'cursor-pointer hover:text-red-600'}>{NAV_LINK_SUPERHERO}</li>
                     <li id='about_nav' className={currentNavItem === NAV_ITEM_ABOUT ? "cursor-pointer text-red-600 underline underline-offset-8" :'cursor-pointer hover:text-red-600'}>{NAV_LINK_ABOUT}</li>
                     <li id='fav_nav' className={currentNavItem === NAV_ITEM_FAVOURITE ? "cursor-pointer text-red-600 underline underline-offset-8" :'cursor-pointer hover:text-red-600'}>{NAV_LINK_FAVOURITES}</li>
