@@ -7,6 +7,7 @@ const AppContext = ({ children }) => {
     const [isAutoSuggestOpen, setAutoSuggestOpen] = useState(false)
     const [superHeroInfo, setSuperHeroInfo] = useState({});
     const [showSuperheroModal, setShowSuperHeroModal] = useState(false)
+    const [mainSuperHeroList, setMainSuperHeroList] = useState([])
     const state = {
         searchText,
         setSearchText,
@@ -17,7 +18,9 @@ const AppContext = ({ children }) => {
         superHeroInfo,
         setSuperHeroInfo,
         showSuperheroModal,
-        setShowSuperHeroModal
+        setShowSuperHeroModal,
+        mainSuperHeroList,
+        setMainSuperHeroList
     }
     return (
         <SuperHeroAppContext.Provider value={state}>

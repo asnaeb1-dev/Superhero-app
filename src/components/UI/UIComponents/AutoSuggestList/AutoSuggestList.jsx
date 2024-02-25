@@ -11,7 +11,7 @@ const AutoSuggestList = ({ superheroList = [] }) => {
 
     if(!isAutoSuggestOpen) return null;
     return (
-        <div onClick={e => handleSelect(e)} className=' max-h-[350px] h-[350px] overflow-y-scroll absolute top-[135px] w-[94%] md:top-[70px] md:w-[24%]'>
+        <div onClick={e => handleSelect(e)} className='bg-zinc-900 max-h-[350px] rounded-xl overflow-y-scroll absolute top-[127px] w-[94%] md:top-[70px] md:w-[24%]'>
             {
                 superheroList && superheroList.map((superhero, index) => {
                     return (
