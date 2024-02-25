@@ -44,7 +44,7 @@ const MainAppScreen = () => {
                     <h1 className='text-red-600 px-4 text-2xl pb-2'>Superhero</h1>
                 </div>
             </div>
-            <div className='w-full relative mt-[157px] sm:mt-[65px]'>
+            <div className='w-full relative mt-[170px] sm:mt-[70px]'>
                 <Grid superheroList={mainSuperHeroList}/>
             </div>
         </div>

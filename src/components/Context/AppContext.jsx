@@ -8,6 +8,8 @@ const AppContext = ({ children }) => {
     const [superHeroInfo, setSuperHeroInfo] = useState({});
     const [showSuperheroModal, setShowSuperHeroModal] = useState(false)
     const [mainSuperHeroList, setMainSuperHeroList] = useState([])
+    const [currentSuperHeroID, setCurrentSuperHeroID] = useState(-1);
+    
     const state = {
         searchText,
         setSearchText,
@@ -20,7 +22,9 @@ const AppContext = ({ children }) => {
         showSuperheroModal,
         setShowSuperHeroModal,
         mainSuperHeroList,
-        setMainSuperHeroList
+        setMainSuperHeroList,
+        currentSuperHeroID,
+        setCurrentSuperHeroID,
     }
     return (
         <SuperHeroAppContext.Provider value={state}>
