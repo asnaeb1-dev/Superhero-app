@@ -6,9 +6,8 @@ import { SuperHeroAppContext } from './components/Context/AppContext';
 const App = () => {
 	const { showSuperheroModal } = useContext(SuperHeroAppContext);
 	return (
-		<div className={showSuperheroModal ? 'absolute inset-0 overflow-y-hidden' : 'absolute inset-0 overflow-y-scroll'}>
+		<div>
 			<MainAppScreen />
-			<SuperheroModal />
 		</div>
 	)
 }
