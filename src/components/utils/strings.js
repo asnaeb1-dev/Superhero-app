@@ -7,3 +7,7 @@ export const NAV_LINK_FAVOURITES = "Favourites"
 export const NAV_ITEM_SUPERHERO = "superhero_nav";
 export const NAV_ITEM_ABOUT = "about_nav";
 export const NAV_ITEM_FAVOURITE = "fav_nav";
+export const POWERSTATS = "POWERSTATS";
+export const BIOGRAPHY = "BIOGRAPHY";
+export const APPEARANCE = "APPEARANCE";
+export const CONNECTIONS = "CONNECTIONS";
