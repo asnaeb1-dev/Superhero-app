@@ -11,7 +11,7 @@ const Navbar = ({ superheroList, getNavItem, currentNavItem }) => {
     const { searchText, setSearchText} = useContext(SuperHeroAppContext);
     const [menuOpen, setMenuOpen] = useState(false);
     return (
-        <nav className='flex-col p-4 flex sm:flex-row items-center gap-6'>
+        <nav className='flex-col py-4 flex sm:flex-row items-center gap-6'>
             <div className='flex flex-1 flex-row item w-full'>
                 <div className=' flex flex-row flex-1'>
                     <h1 className='text-white text-3xl'>{APP_TITLE_P1}</h1>

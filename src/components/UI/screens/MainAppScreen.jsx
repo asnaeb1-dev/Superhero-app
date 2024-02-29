@@ -4,8 +4,10 @@ import { SuperHeroAppContext } from '../../Context/AppContext'
 import { getSuperheroList, searchSuperHero } from '../../services/api'
 import Grid from '../UIComponents/Grid/Grid'
 import { NAV_ITEM_ABOUT, NAV_ITEM_SUPERHERO, NAV_LINK_ABOUT, NAV_LINK_FAVOURITES, NAV_LINK_SUPERHERO } from '../../utils/strings'
+import SuperheroModal from '../UIComponents/SuperheroModal/SuperheroModal'
 const MainAppScreen = () => {
-    const { searchText, isAutoSuggestOpen, setAutoSuggestOpen, mainSuperHeroList, setMainSuperHeroList } = useContext(SuperHeroAppContext)
+    const { searchText, isAutoSuggestOpen, setAutoSuggestOpen, mainSuperHeroList, setMainSuperHeroList, showSuperheroModal } = useContext(SuperHeroAppContext)
+
     const [superheroList, setSuperHeroList] = useState([]);
     const [currentNavItem, setCurrentNavItem] = useState(NAV_ITEM_SUPERHERO)
 
@@ -37,16 +39,15 @@ const MainAppScreen = () => {
     }, [currentNavItem])
 
     return (
-        <div className=' bg-zinc-900 p-4 w-full'>
-            <div className='fixed top-0 left-0 w-full bg-zinc-900  z-10'>
+        <div className=' bg-zinc-900 px-4 w-full overflow-y-hidden'>
+            <div className='w-full bg-zinc-90'>
                 <NavBar currentNavItem={currentNavItem} superheroList={superheroList} getNavItem={navItem => setCurrentNavItem(navItem)} />
                 <div className='flex flex-row sm:hidden'>
-                    <h1 className='text-red-600 px-4 text-2xl pb-2'>Superhero</h1>
+                    <h1 className='text-red-600 text-2xl'>Superhero</h1>
                 </div>
             </div>
-            <div className='w-full relative mt-[170px] sm:mt-[70px]'>
-                <Grid superheroList={mainSuperHeroList}/>
-            </div>
+            <Grid superheroList={mainSuperHeroList}/>
+            {showSuperheroModal ? <SuperheroModal /> : null }
         </div>
     )
 }

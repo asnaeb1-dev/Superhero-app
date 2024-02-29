@@ -19,3 +19,9 @@ export const getSuperheroList = async(startIndex = 1, count = 20) => {
     const results = await Promise.all(responses.map(resp => resp.json()))
     return results;
 }
+
+export const getSuperHero = async(id = 1) => {
+    const response = await fetch(`https://superheroapi.com/api.php/2827483254201187/${id}`);
+    const result = await response.json();
+    return result;
+}

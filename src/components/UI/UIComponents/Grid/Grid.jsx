@@ -13,7 +13,7 @@ const Grid = ({ superheroList }) => {
     }
 
     return (
-        <div onClick={(e) => handleSuperHeroID(e.target.id)} className='w-full grid grid-cols-2 gap-3 my-4 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6'>
+        <div onClick={(e) => handleSuperHeroID(e.target.id)} className='w-full grid h-[calc(100vh_-_192px)] overflow-y-scroll grid-cols-2 gap-3 mb-4 sm:grid-cols-3 sm:h-[calc(100vh_-_90px)] md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6'>
             {
                 superheroList && superheroList.map((superhero, index) => {
                     return (
