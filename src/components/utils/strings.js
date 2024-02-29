@@ -11,3 +11,9 @@ export const POWERSTATS = "POWERSTATS";
 export const BIOGRAPHY = "BIOGRAPHY";
 export const APPEARANCE = "APPEARANCE";
 export const CONNECTIONS = "CONNECTIONS";
+
+export const MODAL_SIZE = {
+    "CLOSED": 0,
+    "MID_SIZE": 1,
+    "FULL_SIZE": 2
+}

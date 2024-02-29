@@ -1,8 +1,59 @@
 .animate-height {
-    height: calc(100% - 72px);
-    transition: height 0.25s ease-in;
+    animation: slideIn 0.25s linear;
+    height: 53vh;
 }
 
-.animate-mid {
+.animate-height-full {
+    animation: slideInFull 0.25s linear forwards;
+}
+
+.animate-height-reduce {
+    animation: slideInRemove 0.25s linear forwards;
+}
+
+.animate-height-full-to-reduce {
+    animation: fullToZero 0.25s linear forwards;
+
+}
+
+
+@keyframes fullToZero {
+    from {
+        height: calc(100% - 72px);
+    }
+    to{
+        height: 0;
+    }
+}
+
+/* .animate-mid {
     height: 50%;
+} */
+
+@keyframes slideInRemove {
+    from {
+        height: 53vh;
+    }
+    to{
+        height: 0;
+    }
+}
+
+@keyframes slideIn {
+    from {
+        height: 0;
+    }
+
+    to {
+        height: 53vh;
+    }
+}
+
+@keyframes slideInFull {
+    from {
+        height: 53vh;
+    }
+    to {
+        height: calc(100% - 72px);
+    }
 }
