@@ -6,7 +6,7 @@ import { IoIosArrowUp } from "react-icons/io";
 import Switch from "react-switch";
 import { createPortal } from 'react-dom';
 import { getSuperHero } from '../../../services/api';
-import SuperHeroTab from './SuperHeroTab';
+import SuperHeroTab from './SuperHeroTabs/SuperHeroTab';
 
 import "./superheromodal.css";
 import { MODAL_SIZE } from '../../../utils/strings';
@@ -20,11 +20,11 @@ const SuperheroModal = () => {
     const [currentModalSize, setCurrentModalSize] = useState(MODAL_SIZE.CLOSED);
 
     useEffect(() => {
-        // (async() => {
-        //     const response = await getSuperHero(currentSuperHeroID);
-        //     console.log(response);
-        //     setSuperheroData(response);
-        // })()
+        (async() => {
+            const response = await getSuperHero(currentSuperHeroID);
+            console.log(response);
+            setSuperheroData(response);
+        })()
     }, [currentSuperHeroID])
 
     useEffect(() => {
@@ -66,7 +66,7 @@ const SuperheroModal = () => {
         <div onClick={() => (setShowSuperHeroModal(false))} style={{ backgroundColor: "rgba(0, 0, 0, 0.2)" }} className='fixed w-full h-full inset-0 flex justify-center items-center'>
             <div onClick={e => e.stopPropagation()} ref={containerRef} className='w-full z-20 rounded-t-3xl absolute bottom-0 bg-zinc-800 flex flex-col p-4'>
                 {/* Modal Header */}
-                <div className='w-full h-10 flex items-center justify-end'>
+                <div className='w-full h-14 flex items-center justify-end'>
                     <div className='flex flex-row items-center w-full h-full' onClick={handleModalSize}>
                         <IoIosArrowUp size={20} color='white' />
                     </div>
@@ -75,12 +75,11 @@ const SuperheroModal = () => {
                     </button>
                 </div>
                 <div className='w-full h-full flex flex-col items-center'>
-                    <div className='w-full h-[45
-                        0px] flex flex-col gap-4 items-center text-white'>
-                        <div style={{ backgroundImage: `url(https://www.superherodb.com/pictures2/portraits/10/100/10060.jpg)` }} className='w-[60%] h-[300px] bg-cover bg-no-repeat rounded-2xl '></div>
-                        <h1 className=' font-extrabold text-3xl'>{"Batman"}</h1>
+                    <div className='w-full h-[450px] flex flex-col gap-4 items-center text-white'>
+                        <div style={{ backgroundImage: `url(${superheroData?.image?.url})` }} className='w-[60%] h-[300px] bg-cover bg-no-repeat rounded-2xl '></div>
+                        <h1 className=' font-extrabold text-3xl'>{superheroData?.name}</h1>
                     </div>
-                    <SuperHeroTab/>
+                    <SuperHeroTab superheroInfo={superheroData} />
                 </div>
             </div>
         </div>,

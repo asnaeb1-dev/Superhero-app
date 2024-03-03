@@ -1,6 +1,6 @@
 .animate-height {
     animation: slideIn 0.25s linear;
-    height: 53vh;
+    height: 408px;
 }
 
 .animate-height-full {
@@ -26,13 +26,9 @@
     }
 }
 
-/* .animate-mid {
-    height: 50%;
-} */
-
 @keyframes slideInRemove {
     from {
-        height: 53vh;
+        height: 408px;
     }
     to{
         height: 0;
@@ -45,13 +41,13 @@
     }
 
     to {
-        height: 53vh;
+        height: 408px;
     }
 }
 
 @keyframes slideInFull {
     from {
-        height: 53vh;
+        height: 408px;
     }
     to {
         height: calc(100% - 72px);
