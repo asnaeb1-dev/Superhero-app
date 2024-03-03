@@ -2,11 +2,13 @@ import React, { useContext } from 'react'
 import { SuperHeroAppContext } from '../../../Context/AppContext'
 
 const AutoSuggestList = ({ superheroList = [] }) => {
-    const { isAutoSuggestOpen, setAutoSuggestOpen, showSuperheroModal, setShowSuperHeroModal } = useContext(SuperHeroAppContext)
+    const { isAutoSuggestOpen, setAutoSuggestOpen, showSuperheroModal, setShowSuperHeroModal, setCurrentSuperHeroID } = useContext(SuperHeroAppContext)
 
-    const handleSelect = e => {
+    const handleSelect = id => {
         setAutoSuggestOpen(false)
         setShowSuperHeroModal(true)
+        console.log("ID", id);
+        setCurrentSuperHeroID(id)
     }
 
     if(!isAutoSuggestOpen) return null;
@@ -21,6 +23,7 @@ const AutoSuggestList = ({ superheroList = [] }) => {
                             superheroName={superhero?.name}
                             superheroRealName={superhero?.biography["full-name"]}
                             superheroImage={superhero?.image?.url}
+                            handleSelect={itemId => handleSelect(itemId)}
                         />
                     )
                 })
@@ -29,9 +32,9 @@ const AutoSuggestList = ({ superheroList = [] }) => {
     )
 }
 
-const AutoSuggestItem = ({ superheroName, superheroImage, superheroRealName, id }) => {
+const AutoSuggestItem = ({ superheroName, superheroImage, superheroRealName, id, handleSelect }) => {
     return (
-        <div id={id} className='flex flex-row h-16 gap-4  m-2 p-2 rounded-md hover:bg-white hover:bg-opacity-20'>
+        <div id={`${id}`} onClick={e => handleSelect(e.target.id)} className='flex flex-row h-16 gap-4  m-2 p-2 rounded-md hover:bg-white hover:bg-opacity-20'>
             <img src={superheroImage} alt={superheroName} />
             <div className='flex flex-col justify-start'>
                 <h1 className='text-white font-bold text-md'>{superheroName}</h1>

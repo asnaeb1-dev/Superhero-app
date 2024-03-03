@@ -2,6 +2,7 @@ import React, { useContext, useEffect, useRef, useState } from 'react'
 import { SuperHeroAppContext } from '../../../Context/AppContext';
 import { MdCancel } from "react-icons/md";
 import { IoIosArrowUp } from "react-icons/io";
+import { MdFavorite, MdFavoriteBorder  } from "react-icons/md";
 
 import Switch from "react-switch";
 import { createPortal } from 'react-dom';
@@ -18,6 +19,7 @@ const SuperheroModal = () => {
     const [superheroData, setSuperheroData] = useState({});
     const containerRef = useRef()
     const [currentModalSize, setCurrentModalSize] = useState(MODAL_SIZE.CLOSED);
+    const [isFavorite, setFavorite] = useState(false);
 
     useEffect(() => {
         (async() => {
@@ -33,6 +35,14 @@ const SuperheroModal = () => {
             setCurrentModalSize(MODAL_SIZE.MID_SIZE)
         } 
     }, [showSuperheroModal])
+
+    useEffect(() => {
+        if(isFavorite) {
+            document.getElementById("fav-icon").classList.add("animate-bounce");
+        } else {
+            document.getElementById("fav-icon").classList.remove("animate-bounce");
+        }
+    }, [isFavorite])
 
     const handleModalClose = () => {
         if(currentModalSize === MODAL_SIZE.FULL_SIZE) {
@@ -76,7 +86,14 @@ const SuperheroModal = () => {
                 </div>
                 <div className='w-full h-full flex flex-col items-center'>
                     <div className='w-full h-[450px] flex flex-col gap-4 items-center text-white'>
-                        <div style={{ backgroundImage: `url(${superheroData?.image?.url})` }} className='w-[60%] h-[300px] bg-cover bg-no-repeat rounded-2xl '></div>
+                        <div style={{ backgroundImage: `url(${superheroData?.image?.url})` }} className='w-[60%] h-[300px] bg-cover bg-no-repeat rounded-2xl flex justify-end items-end p-5 '>
+                            <span id='fav-icon' onClick={() => setFavorite(!isFavorite)}>
+                                {
+                                    !isFavorite ? <MdFavoriteBorder  size={25} color='red' />:
+                                        <MdFavorite size={25} color='red' />
+                                }
+                            </span>
+                        </div>
                         <h1 className=' font-extrabold text-3xl'>{superheroData?.name}</h1>
                     </div>
                     <SuperHeroTab superheroInfo={superheroData} />

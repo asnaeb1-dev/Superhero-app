@@ -5,6 +5,7 @@ import { getSuperheroList, searchSuperHero } from '../../services/api'
 import Grid from '../UIComponents/Grid/Grid'
 import { NAV_ITEM_ABOUT, NAV_ITEM_SUPERHERO, NAV_LINK_ABOUT, NAV_LINK_FAVOURITES, NAV_LINK_SUPERHERO } from '../../utils/strings'
 import SuperheroModal from '../UIComponents/SuperheroModal/SuperheroModal'
+import FilterBar from '../UIComponents/FilterBar/FilterBar'
 const MainAppScreen = () => {
     const { searchText, isAutoSuggestOpen, setAutoSuggestOpen, mainSuperHeroList, setMainSuperHeroList, showSuperheroModal } = useContext(SuperHeroAppContext)
 
@@ -42,9 +43,7 @@ const MainAppScreen = () => {
         <div className=' bg-zinc-900 px-4 w-full overflow-y-hidden'>
             <div className='w-full bg-zinc-90'>
                 <NavBar currentNavItem={currentNavItem} superheroList={superheroList} getNavItem={navItem => setCurrentNavItem(navItem)} />
-                <div className='flex flex-row sm:hidden'>
-                    <h1 className='text-red-600 text-2xl'>Superhero</h1>
-                </div>
+                <FilterBar filterTitle={"Superhero"} />
             </div>
             <Grid superheroList={mainSuperHeroList}/>
             {showSuperheroModal ? <SuperheroModal /> : null }
