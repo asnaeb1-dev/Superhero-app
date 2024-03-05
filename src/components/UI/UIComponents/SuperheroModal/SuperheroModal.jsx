@@ -4,7 +4,6 @@ import { MdCancel } from "react-icons/md";
 import { IoIosArrowUp } from "react-icons/io";
 import { MdFavorite, MdFavoriteBorder  } from "react-icons/md";
 
-import Switch from "react-switch";
 import { createPortal } from 'react-dom';
 import { getSuperHero } from '../../../services/api';
 import SuperHeroTab from './SuperHeroTabs/SuperHeroTab';

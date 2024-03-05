@@ -3,11 +3,11 @@ import NavBar from "../UIComponents/Navbar/Navbar"
 import { SuperHeroAppContext } from '../../Context/AppContext'
 import { getSuperheroList, searchSuperHero } from '../../services/api'
 import Grid from '../UIComponents/Grid/Grid'
-import { NAV_ITEM_ABOUT, NAV_ITEM_SUPERHERO, NAV_LINK_ABOUT, NAV_LINK_FAVOURITES, NAV_LINK_SUPERHERO } from '../../utils/strings'
+import { NAV_ITEM_SUPERHERO } from '../../utils/strings'
 import SuperheroModal from '../UIComponents/SuperheroModal/SuperheroModal'
 import FilterBar from '../UIComponents/FilterBar/FilterBar'
 const MainAppScreen = () => {
-    const { searchText, isAutoSuggestOpen, setAutoSuggestOpen, mainSuperHeroList, setMainSuperHeroList, showSuperheroModal } = useContext(SuperHeroAppContext)
+    const { filterBoxState, searchText, isAutoSuggestOpen, setAutoSuggestOpen, mainSuperHeroList, setMainSuperHeroList, showSuperheroModal } = useContext(SuperHeroAppContext)
 
     const [superheroList, setSuperHeroList] = useState([]);
     const [currentNavItem, setCurrentNavItem] = useState(NAV_ITEM_SUPERHERO)
@@ -22,18 +22,15 @@ const MainAppScreen = () => {
                     setAutoSuggestOpen(true)
                 }
             })()
-        }, 1000)
+        }, 500)
         return () => clearTimeout(searchTimer);
     }, [searchText])
 
     useEffect(() => {
-        console.log(superheroList);
-    }, [superheroList])
-
-    useEffect(() => {
         if(currentNavItem === NAV_ITEM_SUPERHERO) {
+            setMainSuperHeroList([]);
             (async() => {
-                const result = await getSuperheroList();
+                const result = await getSuperheroList(undefined, undefined, filterBoxState?.currentAlphabet);
                 setMainSuperHeroList(result)
             })()
         }
