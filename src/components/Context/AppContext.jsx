@@ -11,6 +11,16 @@ const AppContext = ({ children }) => {
     const [currentSuperHeroID, setCurrentSuperHeroID] = useState(-1);
     const[isFilterBoxOpen, setFilterBoxOpen] = useState(false);
 
+    const[modalState, setModalState] = useState(false)
+
+    const [filterBoxState, setFilterBoxState] = useState(
+        {
+            alphabeticalOrderIncresing: true,
+            count: 20,
+            currentAlphabet: "A",
+        }
+    )
+
     const state = {
         searchText,
         setSearchText,
@@ -27,7 +37,11 @@ const AppContext = ({ children }) => {
         currentSuperHeroID,
         setCurrentSuperHeroID,
         isFilterBoxOpen,
-        setFilterBoxOpen
+        setFilterBoxOpen,
+        modalState,
+        setModalState,
+        filterBoxState, 
+        setFilterBoxState
     }
     return (
         <SuperHeroAppContext.Provider value={state}>
