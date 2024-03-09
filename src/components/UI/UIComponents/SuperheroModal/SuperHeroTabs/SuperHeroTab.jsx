@@ -8,7 +8,8 @@ const SuperHeroTab = ({ superheroInfo }) => {
     const [superheroTabState, setSuperHeroTabState] = useState(POWERSTATS);
 
     return (
-        <div className='w-full h-full my-4 text-white'>
+        <div className='w-full h-full my-4 md:my-0 text-white'>
+            <h1 className='font-extrabold hidden md:block text-3xl pb-5'>{superheroInfo?.name}</h1>
             <div className='w-full flex gap-7 flex-row justify-between overflow-x-scroll sm:overflow-x-hidden'>
                 <p
                     onClick={e => setSuperHeroTabState(e.target.id)}
@@ -20,7 +21,7 @@ const SuperHeroTab = ({ superheroInfo }) => {
                 <p  onClick={e => setSuperHeroTabState(e.target.id)} id={APPEARANCE} className={superheroTabState !== APPEARANCE ?'font-bold': 'overline overline-offset-8 font-bold decoration-2 decoration-red-600'}>{APPEARANCE}</p>
                 <p  onClick={e => setSuperHeroTabState(e.target.id)} id={BIOGRAPHY} className={superheroTabState !== BIOGRAPHY ?'font-bold': 'overline overline-offset-8 font-bold decoration-2 decoration-red-600'}>{BIOGRAPHY}</p>
             </div>
-            <div className='w-full h-full mt-4 overflow-y-scroll'>
+            <div className='w-full mt-4 overflow-y-scroll md:overflow-y-hidden md:mt-4'>
                 {
                     superheroTabState === POWERSTATS ? 
                         <AbilitiesTab powerstats={superheroInfo?.powerstats} /> : 

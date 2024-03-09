@@ -5,7 +5,7 @@ import { VscWorkspaceTrusted } from "react-icons/vsc";
 
 const AbilitiesTab = ({ powerstats }) => {
     return (
-        <div className='grid grid-cols-1 px-[10px] gap-7 overflow-y-scroll'>
+        <div className='grid grid-cols-1 px-[10px] gap-7 overflow-y-scroll md:overflow-y-hidden'>
             <GridItem title={COMBAT} value={powerstats?.combat} />
             <GridItem title={DURABILITY} value={powerstats?.durability} />
             <GridItem title={INTELLIGENCE} value={powerstats?.intelligence} />

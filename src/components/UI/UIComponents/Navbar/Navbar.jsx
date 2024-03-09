@@ -33,7 +33,14 @@ const Navbar = ({ superheroList, getNavItem, currentNavItem }) => {
             <div className='flex-1 flex flex-col justify-end w-full'>
                 <form className='border-2 border-white w-full rounded-full px-4 py-3 flex flex-row' onSubmit={e => (e.preventDefault(), handleSearchSubmit(e.target.superheroname.value))}>
                     <input onChange={e => setSearchText(e.target.value)} value={searchText} name='superheroname' className='text-red-600 w-full bg-transparent outline-none' type='text' placeholder={SEARCH_TEXT} />
-                    <button><FaSearch color='white' /></button>
+                    <button>
+                        {
+                            searchText && searchText.length > 0 ?
+                                <FaXmark color='white' />:
+                                <FaSearch color='white' />
+                                
+                        }
+                    </button>
                 </form>
                 {
                     searchText ?

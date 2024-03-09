@@ -18,6 +18,7 @@ const AppContext = ({ children }) => {
             alphabeticalOrderIncresing: true,
             count: 20,
             currentAlphabet: "A",
+            pageNumber: 1
         }
     )
 

@@ -9,7 +9,7 @@ import { IoMdSwap } from "react-icons/io";
 
 const AppearanceTab = ({ appearanceInfo }) => {
     return (
-        <div className='grid grid-cols-1 px-[10px] gap-7 overflow-y-scroll'>
+        <div className='grid grid-cols-1 px-[10px] gap-7 overflow-y-scroll md:overflow-y-hidden'>
             <GridItem title={GENDER} value={appearanceInfo?.gender} />
             <GridItem title={RACE} value={appearanceInfo?.race} />
             <GridItem title={HEIGHT} value={appearanceInfo?.height} />

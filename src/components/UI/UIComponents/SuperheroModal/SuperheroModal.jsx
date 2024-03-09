@@ -72,28 +72,29 @@ const SuperheroModal = () => {
     }   
 
     return createPortal(
-        <div onClick={() => (setShowSuperHeroModal(false))} style={{ backgroundColor: "rgba(0, 0, 0, 0.2)" }} className='fixed w-full h-full inset-0 flex justify-center items-center'>
-            <div onClick={e => e.stopPropagation()} ref={containerRef} className='w-full z-20 rounded-t-3xl absolute bottom-0 bg-zinc-800 flex flex-col p-4'>
+        <div onTouchEnd={() => (setShowSuperHeroModal(false))} style={{ backgroundColor: "rgba(0, 0, 0, 0.4)" }} className='fixed w-full h-full inset-0 flex justify-center items-center'>
+            <div onTouchEnd={e => e.stopPropagation()} ref={containerRef} className={`w-full md:w-4/5 z-20 md:h-3/5 lg:h-3/5 xl:w-3/5 2xl:h-2/3 rounded-t-2xl bottom-0 md:top-0 md:m-auto absolute md: bg-zinc-800 flex flex-col p-4 md:rounded-2xl`}>
                 {/* Modal Header */}
                 <div className='w-full h-14 flex items-center justify-end'>
-                    <div className='flex flex-row items-center w-full h-full' onClick={handleModalSize}>
+                    <div className='flex flex-row items-center w-full h-full md:hidden' onClick={handleModalSize}>
                         <IoIosArrowUp size={20} color='white' />
                     </div>
                     <button  onMouseEnter={() =>  setHover(true)} onMouseLeave={() => setHover(false)} onClick={handleModalClose}>
                         <MdCancel size={25} color={isHover ? "red" : "white"} />
                     </button>
                 </div>
-                <div className='w-full h-full flex flex-col items-center'>
-                    <div className='w-full h-[450px] flex flex-col gap-4 items-center text-white'>
-                        <div style={{ backgroundImage: `url(${superheroData?.image?.url})` }} className='w-[60%] h-[300px] bg-cover bg-no-repeat rounded-2xl flex justify-end items-end p-5 '>
-                            <span id='fav-icon' onClick={() => setFavorite(!isFavorite)}>
+                <div className='w-full h-full flex flex-col md:flex-row items-center'>
+
+                    <div className='w-full h-[450px] md:h-full flex flex-col gap-4 items-center text-white'>
+                        <div style={{ backgroundImage: `url(${superheroData?.image?.url})` }} className='w-[60%] sm:w-[75%] h-[300px] md:h-[calc(100%_-_66px)] bg-cover bg-no-repeat rounded-2xl flex justify-end items-end p-5 '>
+                            <span className='cursor-pointer' id='fav-icon' onClick={() => setFavorite(!isFavorite)}>
                                 {
                                     !isFavorite ? <MdFavoriteBorder  size={25} color='red' />:
                                         <MdFavorite size={25} color='red' />
                                 }
                             </span>
                         </div>
-                        <h1 className=' font-extrabold text-3xl'>{superheroData?.name}</h1>
+                        <h1 className='font-extrabold text-3xl md:hidden'>{superheroData?.name}</h1>
                     </div>
                     <SuperHeroTab superheroInfo={superheroData} />
                 </div>

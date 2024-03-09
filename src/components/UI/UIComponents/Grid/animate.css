@@ -1,0 +1,27 @@
+.animate-height-pop {
+    animation: slideInPop 0.25s linear;
+}
+
+.animate-height-down-pop {
+    animation: slideOutPop 0.25s linear;
+}
+
+@keyframes slideInPop {
+    from {
+        height: 20%;
+    }
+
+    to {
+        height: 80%;
+    }
+}
+
+@keyframes slideOutPop {
+    from {
+        height: 80%;
+    }
+
+    to {
+        height: 20%;
+    }
+}
