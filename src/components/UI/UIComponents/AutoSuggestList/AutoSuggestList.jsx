@@ -1,19 +1,30 @@
-import React, { useContext } from 'react'
+import React, { useContext, useState } from 'react'
 import { SuperHeroAppContext } from '../../../Context/AppContext'
+import "./autosuggestlist.css";
+import { MdFavorite, MdFavoriteBorder  } from "react-icons/md";
+import { getFavourites } from '../../../services/storage';
 
 const AutoSuggestList = ({ superheroList = [] }) => {
-    const { isAutoSuggestOpen, setAutoSuggestOpen, showSuperheroModal, setShowSuperHeroModal, setCurrentSuperHeroID } = useContext(SuperHeroAppContext)
+    const { isAutoSuggestOpen, setAutoSuggestOpen, showSuperheroModal, setShowSuperHeroModal, setCurrentSuperHeroID, searchText } = useContext(SuperHeroAppContext)
+    const [windowSize, setWindowSize] = useState(document.getElementById('search-form').getBoundingClientRect().width);
 
     const handleSelect = id => {
         setAutoSuggestOpen(false)
-        setShowSuperHeroModal(true)
-        console.log("ID", id);
-        setCurrentSuperHeroID(id)
+        setTimeout(() => {
+            setShowSuperHeroModal(true)
+            console.log("ID", id);
+            setCurrentSuperHeroID(id)    
+        }, 500)
     }
+    
+    window.addEventListener("resize", e => {
+        const width = document.getElementById('search-form').getBoundingClientRect().width;
+        setWindowSize(width)
+    })
 
     if(!isAutoSuggestOpen) return null;
     return (
-        <div onClick={e => handleSelect(e)} className='bg-zinc-900 max-h-[350px] rounded-xl overflow-y-scroll absolute top-[127px] w-[94%] md:top-[70px] md:w-[24%]'>
+        <div onClick={e => handleSelect(e)} style={{ width: `${windowSize}px` }} className={`bg-zinc-900 max-h-[350px] border-2 border-white ${searchText.length === 0 ? "rounded-xl" : "rounded-b-2xl"} overflow-y-scroll absolute top-[127px] w-[94%] md:top-[65px] main-content`}>
             {
                 superheroList && superheroList.map((superhero, index) => {
                     return (
@@ -33,7 +44,7 @@ const AutoSuggestList = ({ superheroList = [] }) => {
 }
 
 const AutoSuggestItem = ({ superheroName, superheroImage, superheroRealName, id, handleSelect }) => {
-    return (
+        return (
         <div id={`${id}`} onClick={e => handleSelect(e.target.id)} className='flex flex-row h-16 gap-4  m-2 p-2 rounded-md hover:bg-white hover:bg-opacity-20'>
             <img src={superheroImage} alt={superheroName} />
             <div className='flex flex-col justify-start'>

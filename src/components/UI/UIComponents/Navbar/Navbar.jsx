@@ -13,7 +13,7 @@ const Navbar = ({ superheroList, getNavItem, currentNavItem }) => {
     return (
         <nav className='flex-col py-4 flex sm:flex-row items-center gap-6'>
             <div className='flex flex-1 flex-row item w-full'>
-                <div className=' flex flex-row flex-1'>
+                <div className=' flex flex-row flex-1 font-extrabold'>
                     <h1 className='text-white text-3xl'>{APP_TITLE_P1}</h1>
                     <h1 className=' text-red-600 text-3xl'>{APP_TITLE_P2}</h1>
                 </div>
@@ -31,14 +31,13 @@ const Navbar = ({ superheroList, getNavItem, currentNavItem }) => {
             </div>
             {menuOpen && <Menu />}
             <div className='flex-1 flex flex-col justify-end w-full'>
-                <form className='border-2 border-white w-full rounded-full px-4 py-3 flex flex-row' onSubmit={e => (e.preventDefault(), handleSearchSubmit(e.target.superheroname.value))}>
-                    <input onChange={e => setSearchText(e.target.value)} value={searchText} name='superheroname' className='text-red-600 w-full bg-transparent outline-none' type='text' placeholder={SEARCH_TEXT} />
-                    <button>
+                <form id="search-form" className={`border-2 border-white w-full ${searchText.length === 0 ? "rounded-2xl" : "rounded-t-2xl"} px-4 py-3 flex flex-row`} onSubmit={e => (e.preventDefault(), handleSearchSubmit(e.target.superheroname.value))}>
+                    <input onChange={e => setSearchText(e.target.value)} value={searchText} name='superheroname' className='text-red-600 w-full bg-transparent outline-none font-semibold' type='text' placeholder={SEARCH_TEXT} />
+                    <button onClick={() => setSearchText("")}>
                         {
                             searchText && searchText.length > 0 ?
-                                <FaXmark color='white' />:
+                                <FaXmark color='red' />:
                                 <FaSearch color='white' />
-                                
                         }
                     </button>
                 </form>

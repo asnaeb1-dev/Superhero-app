@@ -9,7 +9,7 @@ const AppContext = ({ children }) => {
     const [showSuperheroModal, setShowSuperHeroModal] = useState(false)
     const [mainSuperHeroList, setMainSuperHeroList] = useState([])
     const [currentSuperHeroID, setCurrentSuperHeroID] = useState(-1);
-    const[isFilterBoxOpen, setFilterBoxOpen] = useState(false);
+    const [isFilterBoxOpen, setFilterBoxOpen] = useState(false);
 
     const[modalState, setModalState] = useState(false)
 

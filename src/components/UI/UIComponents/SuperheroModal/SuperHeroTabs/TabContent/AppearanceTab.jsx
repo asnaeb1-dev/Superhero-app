@@ -53,7 +53,7 @@ const GridItem = ({ title, value }) => {
                 <h1 className=' font-extrabold text-red-600'>{title === HEIGHT || title === WEIGHT ? value[swapMetric] : value}</h1>
                 {
                     title === HEIGHT || title === WEIGHT ?
-                    <span onTouchEnd={() => setSwapMetric(swapMetric => swapMetric === 0 ? 1 : 0)} className='bg-white rounded-full'>
+                    <span onClick={() => setSwapMetric(swapMetric => swapMetric === 0 ? 1 : 0)} className='bg-white rounded-full cursor-pointer'>
                         <IoMdSwap color={"rgb(68, 64, 60)"} />
                     </span> : null
                 }
