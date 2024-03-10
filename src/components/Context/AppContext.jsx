@@ -9,7 +9,7 @@ const AppContext = ({ children }) => {
     const [showSuperheroModal, setShowSuperHeroModal] = useState(false)
     const [mainSuperHeroList, setMainSuperHeroList] = useState([])
     const [currentSuperHeroID, setCurrentSuperHeroID] = useState(-1);
-    const[isFilterBoxOpen, setFilterBoxOpen] = useState(false);
+    const [isFilterBoxOpen, setFilterBoxOpen] = useState(false);
 
     const[modalState, setModalState] = useState(false)
 
@@ -18,6 +18,7 @@ const AppContext = ({ children }) => {
             alphabeticalOrderIncresing: true,
             count: 20,
             currentAlphabet: "A",
+            pageNumber: 1
         }
     )
 

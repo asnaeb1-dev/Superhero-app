@@ -1,8 +1,8 @@
 import React, { useContext, useEffect, useRef, useState } from 'react'
 import { SuperHeroAppContext } from '../../../Context/AppContext';
-import { MdCancel } from "react-icons/md";
 import { IoIosArrowUp } from "react-icons/io";
-import { MdFavorite, MdFavoriteBorder  } from "react-icons/md";
+import { MdFavorite, MdFavoriteBorder, MdOutlineNavigateNext  } from "react-icons/md";
+import { FaArrowLeft } from "react-icons/fa";
 
 import { createPortal } from 'react-dom';
 import { getSuperHero } from '../../../services/api';
@@ -10,15 +10,17 @@ import SuperHeroTab from './SuperHeroTabs/SuperHeroTab';
 
 import "./superheromodal.css";
 import { MODAL_SIZE } from '../../../utils/strings';
+import { getFavourites, saveFavourite } from '../../../services/storage';
 
 const SuperheroModal = () => {
-    const { setShowSuperHeroModal, showSuperheroModal, currentSuperHeroID } = useContext(SuperHeroAppContext);
+    const { setShowSuperHeroModal, showSuperheroModal, currentSuperHeroID, setCurrentSuperHeroID } = useContext(SuperHeroAppContext);
     const [isSlideShowEnabled, setSlideShowEnabled] = useState(false);
     const [isHover, setHover] = useState(false);
     const [superheroData, setSuperheroData] = useState({});
     const containerRef = useRef()
     const [currentModalSize, setCurrentModalSize] = useState(MODAL_SIZE.CLOSED);
     const [isFavorite, setFavorite] = useState(false);
+    const [favouriteList, setFavouriteList] = useState([...getFavourites()]);
 
     useEffect(() => {
         (async() => {
@@ -36,8 +38,23 @@ const SuperheroModal = () => {
     }, [showSuperheroModal])
 
     useEffect(() => {
+        console.log("ID", favouriteList.indexOf(currentSuperHeroID));
+        if(favouriteList.indexOf(currentSuperHeroID) === -1) {
+            setFavorite(false);
+        } else {
+            setFavorite(true);
+        }
+    }, [currentSuperHeroID])
+
+    useEffect(() => {
         if(isFavorite) {
             document.getElementById("fav-icon").classList.add("animate-bounce");
+            setFavouriteList(favList => {
+                const newList = [...favList];
+                newList.push(currentSuperHeroID);
+                saveFavourite(newList);
+                return newList;
+            });
         } else {
             document.getElementById("fav-icon").classList.remove("animate-bounce");
         }
@@ -69,32 +86,45 @@ const SuperheroModal = () => {
             containerRef.current.classList.remove("animate-height");
             containerRef.current.classList.add("animate-height-reduce");
         }
-    }   
-
+    }
+    /*
+        sm	640px	@media (min-width: 640px) { ... }
+        md	768px	@media (min-width: 768px) { ... }
+        lg	1024px	@media (min-width: 1024px) { ... }
+        xl	1280px	@media (min-width: 1280px) { ... }
+        2xl	1536px  @media (min-width: 1536px) { ... }
+    */
     return createPortal(
-        <div onClick={() => (setShowSuperHeroModal(false))} style={{ backgroundColor: "rgba(0, 0, 0, 0.2)" }} className='fixed w-full h-full inset-0 flex justify-center items-center'>
-            <div onClick={e => e.stopPropagation()} ref={containerRef} className='w-full z-20 rounded-t-3xl absolute bottom-0 bg-zinc-800 flex flex-col p-4'>
+        <div onTouchEnd={() => (setShowSuperHeroModal(false))} style={{ backgroundColor: "rgba(0, 0, 0, 0.4)" }} className='fixed w-full h-full inset-0 flex justify-center items-center'>
+            <div onTouchEnd={e => e.stopPropagation()} ref={containerRef} className={`w-full md:w-4/5 z-20 md:h-3/5 lg:h-3/5 xl:w-3/5 2xl:h-2/3 rounded-t-2xl bottom-0 md:top-0 md:m-auto absolute md: bg-zinc-800 flex flex-col p-4 md:rounded-2xl`}>
                 {/* Modal Header */}
-                <div className='w-full h-14 flex items-center justify-end'>
-                    <div className='flex flex-row items-center w-full h-full' onClick={handleModalSize}>
+                <div className='w-full h-14 flex items-center justify-between'>
+                    <div className='flex flex-row items-center w-full h-full md:hidden' onClick={handleModalSize}>
                         <IoIosArrowUp size={20} color='white' />
                     </div>
-                    <button  onMouseEnter={() =>  setHover(true)} onMouseLeave={() => setHover(false)} onClick={handleModalClose}>
-                        <MdCancel size={25} color={isHover ? "red" : "white"} />
+                    <div className=' cursor-pointer hidden md:block ml-2' onClick={() => setShowSuperHeroModal(false)}>
+                        <FaArrowLeft size={20} color='red' />
+                    </div>
+                    <button onClick={() => setCurrentSuperHeroID(String(Number(currentSuperHeroID) + 1))} className='flex flex-row text-white items-center rounded-lg border-transparent border-2 hover:border-red-600 pl-2 pb-1'>
+                        <p>Next</p>
+                        <MdOutlineNavigateNext size={25} color="white" />
                     </button>
                 </div>
-                <div className='w-full h-full flex flex-col items-center'>
-                    <div className='w-full h-[450px] flex flex-col gap-4 items-center text-white'>
-                        <div style={{ backgroundImage: `url(${superheroData?.image?.url})` }} className='w-[60%] h-[300px] bg-cover bg-no-repeat rounded-2xl flex justify-end items-end p-5 '>
-                            <span id='fav-icon' onClick={() => setFavorite(!isFavorite)}>
+                {/* Info Deck */}
+                <div className='w-full h-full flex flex-col md:flex-row items-center'>
+                    {/* Image center */}
+                    <div className='w-full md:h-full flex flex-col gap-4 items-center text-white'>
+                        <div style={{ backgroundImage: `url(${superheroData?.image?.url})` }} className='w-[60%] sm:w-[75%] h-[300px] md:h-[calc(100%_-_66px)] bg-cover bg-no-repeat rounded-2xl flex justify-end items-end p-5 '>
+                            <span className='cursor-pointer' id='fav-icon' onClick={() => setFavorite(!isFavorite)}>
                                 {
                                     !isFavorite ? <MdFavoriteBorder  size={25} color='red' />:
                                         <MdFavorite size={25} color='red' />
                                 }
                             </span>
                         </div>
-                        <h1 className=' font-extrabold text-3xl'>{superheroData?.name}</h1>
+                        <h1 className='font-extrabold text-3xl md:hidden'>{superheroData?.name}</h1>
                     </div>
+                    {/* Superhero tab */}
                     <SuperHeroTab superheroInfo={superheroData} />
                 </div>
             </div>

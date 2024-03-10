@@ -1,12 +1,25 @@
 import React, { useContext, useState } from 'react'
 import { FaAngleDown, FaAngleUp, FaCheck } from "react-icons/fa";
 import { SuperHeroAppContext } from '../../../Context/AppContext';
+import { GrFormNextLink, GrFormPreviousLink  } from "react-icons/gr";
 
 const FilterBox = () => {
     const { setModalState, filterBoxState, setFilterBoxState } = useContext(SuperHeroAppContext);
-    const [currentFilterBoxState, setCurrentFilterBoxState] = useState(filterBoxState)
+    const [currentFilterBoxState, setCurrentFilterBoxState] = useState(filterBoxState);
+
+    const handlePageMovement = (pageMovement = "NEXT") => {
+        switch (pageMovement) {
+            case "PREVIOUS":
+                break;
+            case "NEXT":
+                break;
+            default:
+                break;
+        }
+    }
+
     return (
-        <div onTouchEnd={e => e.stopPropagation()} className=' bg-zinc-800 z-50 rounded-lg absolute grid grid-cols-1 right-4 top-[180px] w-[200px] h-[200px] p-4'>
+        <div onTouchEnd={e => e.stopPropagation()} className=' bg-zinc-800 z-50 rounded-br-xl rounded-bl-xl rounded-tl-xl border-[1.5px] border-red-600 absolute grid grid-cols-1 right-[25px] top-[180px] w-[200px] h-[240px] p-4'>
             <div className='flex flex-row justify-between text-white items-center'>
                 <h1>{currentFilterBoxState.alphabeticalOrderIncresing ? "A-Z" : "Z-A"}</h1>
                 <div onClick={() => setCurrentFilterBoxState(filterState => {
@@ -19,14 +32,19 @@ const FilterBox = () => {
             </div>
             <div className='flex flex-row justify-between text-white items-center'>
                 <h1>Count</h1>
-                <button>
-                    <FaAngleDown />
-                </button>
+                <select defaultValue={currentFilterBoxState.count} className='bg-zinc-800 outline-none font-semibold' name="superhero_count" id="superhero_count">
+                    <option value="10">10</option>
+                    <option value="20">20</option>
+                    <option value="30">30</option>
+                    <option value="40">40</option>
+                    <option value="50">50</option>
+                    <option value="60">60</option>
+                </select>
             </div>
             <div className='flex flex-row justify-between text-white items-center'>
                 <h1>Alphabet</h1>
                 <input
-                    className='w-[30px] border-2 border-red-600 rounded-md bg-transparent text-center outline-none focus:bg-slate-500'
+                    className='w-[30px] border-2 border-red-600 rounded-lg bg-transparent text-center outline-none focus:bg-slate-500'
                     value={currentFilterBoxState.currentAlphabet}
                     maxLength={1}
                     type={"text"}
@@ -36,6 +54,17 @@ const FilterBox = () => {
                         return newState
                     })}
                 />
+            </div>
+            <div className='flex flex-row justify-between text-white items-center'>
+                <h1>Page</h1>
+                <span className='flex flex-row gap-2'>
+                    <div onTouchEnd={() => handlePageMovement("PREVIOUS")} className='border-[2px] border-red-600 rounded-lg px-2 hover:bg-white hover:bg-opacity-10'>
+                        <GrFormPreviousLink size={25} />
+                    </div>
+                    <div onTouchEnd={() => handlePageMovement("NEXT")} className='border-[2px] border-red-600 rounded-lg px-2 hover:bg-white hover:bg-opacity-10'>
+                        <GrFormNextLink size={25} />
+                    </div>
+                </span>
             </div>
             <div className='flex flex-row justify-end' onTouchEnd={() => setFilterBoxState(currentFilterBoxState)}>
                 <button onTouchEnd={() => setTimeout(() => setModalState(false), 300)}>
