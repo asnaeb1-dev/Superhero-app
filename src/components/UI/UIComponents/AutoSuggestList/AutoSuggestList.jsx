@@ -1,8 +1,6 @@
 import React, { useContext, useState } from 'react'
 import { SuperHeroAppContext } from '../../../Context/AppContext'
 import "./autosuggestlist.css";
-import { MdFavorite, MdFavoriteBorder  } from "react-icons/md";
-import { getFavourites } from '../../../services/storage';
 
 const AutoSuggestList = ({ superheroList = [] }) => {
     const { isAutoSuggestOpen, setAutoSuggestOpen, showSuperheroModal, setShowSuperHeroModal, setCurrentSuperHeroID, searchText } = useContext(SuperHeroAppContext)
@@ -24,7 +22,7 @@ const AutoSuggestList = ({ superheroList = [] }) => {
 
     if(!isAutoSuggestOpen) return null;
     return (
-        <div onClick={e => handleSelect(e)} style={{ width: `${windowSize}px` }} className={`bg-zinc-900 max-h-[350px] border-2 border-white ${searchText.length === 0 ? "rounded-xl" : "rounded-b-2xl"} overflow-y-scroll absolute top-[127px] w-[94%] md:top-[65px] main-content`}>
+        <div onClick={e => handleSelect(e)} style={{ width: `${windowSize}px` }} className={`bg-zinc-900 max-h-[350px] border-2 border-white ${searchText.length === 0 ? "rounded-xl" : "rounded-b-2xl"} overflow-y-scroll absolute top-[127px] w-[94%] md:top-[57px] main-content`}>
             {
                 superheroList && superheroList.map((superhero, index) => {
                     return (

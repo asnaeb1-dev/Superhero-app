@@ -1,11 +1,12 @@
-import React, { useContext, useEffect, useState } from 'react'
-import NavBar from "../UIComponents/Navbar/Navbar"
-import { SuperHeroAppContext } from '../../Context/AppContext'
-import { getSuperheroList, searchSuperHero } from '../../services/api'
-import Grid from '../UIComponents/Grid/Grid'
-import { NAV_ITEM_SUPERHERO } from '../../utils/strings'
-import SuperheroModal from '../UIComponents/SuperheroModal/SuperheroModal'
-import FilterBar from '../UIComponents/FilterBar/FilterBar'
+import React, { useContext, useEffect, useState } from 'react';
+import NavBar from "../UIComponents/Navbar/Navbar";
+import { SuperHeroAppContext } from '../../Context/AppContext';
+import { getSuperheroList, searchSuperHero } from '../../services/api';
+import Grid from '../UIComponents/Grid/Grid';
+import { NAV_ITEM_SUPERHERO } from '../../utils/strings';
+import SuperheroModal from '../UIComponents/SuperheroModal/SuperheroModal';
+import FilterBar from '../UIComponents/FilterBar/FilterBar';
+
 const MainAppScreen = () => {
     const { filterBoxState, searchText, isAutoSuggestOpen, setAutoSuggestOpen, mainSuperHeroList, setMainSuperHeroList, showSuperheroModal } = useContext(SuperHeroAppContext)
 
@@ -24,7 +25,7 @@ const MainAppScreen = () => {
             })()
         }, 500)
         return () => clearTimeout(searchTimer);
-    }, [searchText])
+    }, [searchText]);
 
     useEffect(() => {
         if(currentNavItem === NAV_ITEM_SUPERHERO) {
@@ -34,11 +35,11 @@ const MainAppScreen = () => {
                 setMainSuperHeroList(result)
             })()
         }
-    }, [currentNavItem])
+    }, [currentNavItem]);
 
     return (
         <div className=' bg-zinc-900 px-4 w-full overflow-y-hidden'>
-            <div className='w-full bg-zinc-90'>
+            <div className='w-full bg-zinc-90 sm:flex sm:flex-row sm:gap-5'>
                 <NavBar currentNavItem={currentNavItem} superheroList={superheroList} getNavItem={navItem => setCurrentNavItem(navItem)} />
                 <FilterBar filterTitle={"Superhero"} />
             </div>
