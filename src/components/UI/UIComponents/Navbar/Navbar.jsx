@@ -74,9 +74,9 @@ const Navbar = ({ superheroList, getNavItem, currentNavItem }) => {
                 </ul>
             </div>
             {menuOpen && <Menu />}
-            <div ref={navbarRef} className={`flex flex-col justify-end`}>
+            <div ref={navbarRef} className={`flex flex-col justify-end relative`}>
                 <form id="search-form" className={`border-2 border-white ${searchText.length === 0 ? "rounded-2xl" : "rounded-t-2xl"} px-4 py-2 flex flex-row`} onSubmit={e => (e.preventDefault(), handleSearchSubmit(e.target.superheroname.value))}>
-                    <input onChange={e => (setSearchText(e.target.value), setTypingStarted())} value={searchText} name='superheroname' className={`text-red-600 ${isSearchBoxOpen ? "w-full" : "w-0"} bg-transparent outline-none font-semibold`} type='text' placeholder={SEARCH_TEXT} />
+                    <input onChange={e => (setSearchText(e.target.value))} value={searchText} name='superheroname' className={`text-red-600 ${isSearchBoxOpen ? "w-full" : "w-0"} bg-transparent outline-none font-semibold`} type='text' placeholder={SEARCH_TEXT} />
                     <button onClick={handleSearchClearButtonClick}>
                     {
                         searchText && searchText.length > 0 ?

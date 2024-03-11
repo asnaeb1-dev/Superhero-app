@@ -35,6 +35,10 @@ export const WEIGHT = "WEIGHT";
 export const EYE_COLOR = "EYE-COLOR";
 export const HAIR_COLOR = "HAIR-COLOR";
 
+export const ALPHABET = "Alphabet";
+export const COUNT = "Count";
+export const PAGE = "Page";
+
 export const MODAL_SIZE = {
     "CLOSED": 0,
     "MID_SIZE": 1,
