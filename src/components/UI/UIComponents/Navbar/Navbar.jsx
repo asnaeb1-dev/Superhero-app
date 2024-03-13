@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useContext, useRef } from 'react';
 //title
-import { APP_TITLE_P1, APP_TITLE_P2, NAV_ITEM_ABOUT, NAV_ITEM_FAVOURITE, NAV_ITEM_SUPERHERO, NAV_LINK_ABOUT, NAV_LINK_FAVOURITES, NAV_LINK_SUPERHERO, SEARCH_TEXT } from '../../../utils/strings';
+import { APP_TITLE_P1, APP_TITLE_P2, NAV_LINK_ABOUT, NAV_LINK_FAVOURITES, NAV_LINK_SUPERHERO, SEARCH_TEXT } from '../../../utils/strings';
 
 //icons
 import { FaSearch } from "react-icons/fa";
@@ -16,11 +16,19 @@ import { Link, useLocation } from 'react-router-dom';
 
 //styles
 import "../../styles/navbaranim.css"
+import { ClipLoader } from 'react-spinners';
+import { searchSuperHero } from '../../../services/api';
 
-const Navbar = ({ superheroList, getNavItem }) => {
-    const { searchText, setSearchText} = useContext(SuperHeroAppContext);
+const Navbar = () => {
+    const { isAutoSuggestOpen, setAutoSuggestOpen } = useContext(SuperHeroAppContext);
+
     const [menuOpen, setMenuOpen] = useState(false);
     const [isSearchBoxOpen, setSearchBoxOpen] = useToggle();
+    const [searchText, setSearchText] = useState("");
+    const [isSearchLoading, setSearchLoading] = useState(false);
+    //for search list
+	const [superheroList, setSuperHeroList] = useState([]);
+
     const navbarRef = useRef();
     const currentNavItem = useLocation();
 
@@ -41,6 +49,22 @@ const Navbar = ({ superheroList, getNavItem }) => {
         }
     }
 
+    useEffect(() => {
+        if(!searchText) return;
+        setSearchLoading(true);
+        const searchTimer = setTimeout(() => {
+            (async () => {
+                const searchResponse = await searchSuperHero(searchText)
+                setSuperHeroList(searchResponse.results);
+                if(!isAutoSuggestOpen) {
+                    setAutoSuggestOpen(true)
+                }
+                setSearchLoading(false)
+            })()
+        }, 500)
+        return () => clearTimeout(searchTimer);
+    }, [searchText])
+
     return (
         <nav className='flex-col py-4 flex sm:flex-row items-center gap-6 flex-1 bg-zinc-900 w-full'>
             <div className='flex flex-1 flex-row item w-full'>
@@ -54,7 +78,7 @@ const Navbar = ({ superheroList, getNavItem }) => {
             </div>
 
             <div className='hidden flex-[2] justify-end sm:flex'>
-                <ul onClick={(e) => getNavItem(e.target.id)} className='flex flex-row text-white justify-between gap-5 font-bold text-lg lg:gap-10'>
+                <ul className='flex flex-row text-white justify-between gap-5 font-bold text-lg lg:gap-10'>
                     <li id='superhero_nav' className={currentNavItem.pathname === "/" ? "cursor-pointer text-red-600 underline underline-offset-8" :'cursor-pointer hover:text-red-600'}>
                         <Link to="/">{NAV_LINK_SUPERHERO}</Link>
                     </li>
@@ -68,7 +92,14 @@ const Navbar = ({ superheroList, getNavItem }) => {
             </div>
             {menuOpen && <Menu />}
             <div ref={navbarRef} className={`flex flex-col justify-end relative w-full sm:w-auto`}>
-                <form id="search-form" className={`border-2 border-white ${searchText.length === 0 ? "rounded-2xl" : "rounded-t-2xl"} px-4 py-2 flex flex-row`} onSubmit={e => (e.preventDefault(), handleSearchSubmit(e.target.superheroname.value))}>
+                <form id="search-form" className={`border-2 border-white ${searchText.length === 0 ? "rounded-2xl" : "rounded-t-2xl"} px-4 py-2 flex flex-row items-center justify-center`} onSubmit={e => e.preventDefault()}>
+                    {
+                        isSearchLoading ?
+                            <span>
+                                <ClipLoader color="rgb(239 68 68)" size={13} speedMultiplier={0.8} />
+                            </span>:
+                            null
+                    }
                     <input
                         onChange={e => (setSearchText(e.target.value))}
                         value={searchText}

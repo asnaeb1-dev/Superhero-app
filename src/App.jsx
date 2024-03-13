@@ -1,45 +1,35 @@
 import React, { useEffect, useContext, useState } from 'react'
-import MainAppScreen from './components/UI/screens/MainAppScreen';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
+
+//components
 import FavouritesScreen from './components/UI/screens/FavouritesScreen';
 import AboutScreen from "./components/UI/screens/AboutScreen";
+import MainAppScreen from './components/UI/screens/MainAppScreen';
 import FilterBar from './components/UI/UIComponents/FilterBar/FilterBar';
 import { SuperHeroAppContext } from './components/Context/AppContext';
-import { NAV_ITEM_FAVOURITE, NAV_ITEM_SUPERHERO } from './components/utils/strings'
-import { getSuperheroList, searchSuperHero } from './components/services/api'
-
+import { searchSuperHero } from './components/services/api'
 import NavBar from "./components/UI/UIComponents/Navbar/Navbar";
+import LoaderModal from './components/UI/UIComponents/SuperheroModal/LoaderModal';
 
 const App = () => {
-    const { searchText, isAutoSuggestOpen, setAutoSuggestOpen } = useContext(SuperHeroAppContext)
-	const [superheroList, setSuperHeroList] = useState([]);
-
-    useEffect(() => {
-        if(!searchText) return;
-        const searchTimer = setTimeout(() => {
-            (async () => {
-                const searchResponse = await searchSuperHero(searchText)
-                setSuperHeroList(searchResponse.results);
-                if(!isAutoSuggestOpen) {
-                    setAutoSuggestOpen(true)
-                }
-            })()
-        }, 500)
-        return () => clearTimeout(searchTimer);
-    }, [searchText])
+    const {  isLoading } = useContext(SuperHeroAppContext)
 
 	return (
-		<BrowserRouter>
-			<div className='w-full bg-zinc-90 flex bg-zinc-900 flex-col sm:flex-row sm:gap-5 px-4'>
-                <NavBar superheroList={superheroList} getNavItem={navItem => setCurrentNavItem(navItem)} />
-                <FilterBar filterTitle={"Superhero"} />
-            </div>
-			<Routes>
-				<Route path='/' Component={MainAppScreen} />
-				<Route path='/favourite' Component={FavouritesScreen} />
-				<Route path='/about' Component={AboutScreen} />
-			</Routes>
-		</BrowserRouter>
+        <>
+            {isLoading ? <LoaderModal /> : null}
+            <BrowserRouter>
+                <div className='w-full bg-zinc-90 flex bg-zinc-900 flex-col sm:flex-row sm:gap-5 px-4'>
+                    <NavBar getNavItem={navItem => setCurrentNavItem(navItem)} />
+                    <FilterBar filterTitle={"Superhero"} />
+                </div>
+                <Routes>
+                    <Route path='/' Component={MainAppScreen} />
+                    <Route path='/favourite' Component={FavouritesScreen} />
+                    <Route path='/about' Component={AboutScreen} />
+                </Routes>
+            </BrowserRouter>
+        </>
+		
 	)
 }
 

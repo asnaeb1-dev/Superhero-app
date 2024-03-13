@@ -2,7 +2,6 @@ import { createContext, useState } from "react";
 export const SuperHeroAppContext = createContext();
 
 const AppContext = ({ children }) => {
-    const [searchText, setSearchText] = useState('');
     const [darkMode, setDarkMode] = useState(true)
     const [isAutoSuggestOpen, setAutoSuggestOpen] = useState(false)
     const [superHeroInfo, setSuperHeroInfo] = useState({});
@@ -10,8 +9,8 @@ const AppContext = ({ children }) => {
     const [mainSuperHeroList, setMainSuperHeroList] = useState([])
     const [currentSuperHeroID, setCurrentSuperHeroID] = useState(-1);
     const [isFilterBoxOpen, setFilterBoxOpen] = useState(false);
-
-    const[modalState, setModalState] = useState(false)
+    const [isLoading, setLoading] = useState(false);
+    const [modalState, setModalState] = useState(false)
 
     const [filterBoxState, setFilterBoxState] = useState(
         {
@@ -23,8 +22,6 @@ const AppContext = ({ children }) => {
     )
 
     const state = {
-        searchText,
-        setSearchText,
         darkMode,
         setDarkMode,
         isAutoSuggestOpen,
@@ -42,7 +39,9 @@ const AppContext = ({ children }) => {
         modalState,
         setModalState,
         filterBoxState, 
-        setFilterBoxState
+        setFilterBoxState,
+        isLoading,
+        setLoading,
     }
     return (
         <SuperHeroAppContext.Provider value={state}>

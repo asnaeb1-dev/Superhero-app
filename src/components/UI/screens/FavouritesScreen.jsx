@@ -6,13 +6,15 @@ import { getSuperheroList, getSuperheroListBasedOnIDS } from '../../services/api
 
 const FavouritesScreen = () => {
     const [superheroIDList] = useState(new Set([...getFavourites()]));
-    const { mainSuperHeroList, setMainSuperHeroList, filterBoxState }  = useContext(SuperHeroAppContext);
+    const { mainSuperHeroList, setMainSuperHeroList, setLoading }  = useContext(SuperHeroAppContext);
     
     useEffect(() => {
+        setLoading(true)
         setMainSuperHeroList([]);
         (async() => {
             const result = await getSuperheroListBasedOnIDS(superheroIDList);
             setMainSuperHeroList(result)
+            setLoading(false);
         })()
     }, [superheroIDList])
 

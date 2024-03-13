@@ -4,7 +4,6 @@ import "./autosuggestlist.css";
 
 const AutoSuggestList = ({ superheroList = [] }) => {
     const { isAutoSuggestOpen, setAutoSuggestOpen, showSuperheroModal, setShowSuperHeroModal, setCurrentSuperHeroID, searchText } = useContext(SuperHeroAppContext)
-    const [windowSize, setWindowSize] = useState(document.getElementById('search-form').getBoundingClientRect().width);
 
     const handleSelect = id => {
         setAutoSuggestOpen(false)
@@ -15,11 +14,6 @@ const AutoSuggestList = ({ superheroList = [] }) => {
         }, 500)
     }
     
-    window.addEventListener("resize", e => {
-        const width = document.getElementById('search-form').getBoundingClientRect().width;
-        setWindowSize(width)
-    })
-
     if(!isAutoSuggestOpen) return null;
     return (
         <div onClick={e => handleSelect(e)} className={`bg-zinc-900 max-h-[350px] border-2 border-white ${searchText.length === 0 ? "rounded-xl" : "rounded-b-2xl"} overflow-y-scroll absolute top-[41px] main-content w-full`}>
