@@ -6,12 +6,15 @@ import { FaXmark } from "react-icons/fa6";
 import AutoSuggestList from '../AutoSuggestList/AutoSuggestList';
 import { SuperHeroAppContext } from "../../../Context/AppContext"
 import Menu from '../Menu/Menu';
+import { Link, useLocation } from 'react-router-dom';
 
-const Navbar = ({ superheroList, getNavItem, currentNavItem }) => {
+const Navbar = ({ superheroList, getNavItem }) => {
     const { searchText, setSearchText} = useContext(SuperHeroAppContext);
     const [menuOpen, setMenuOpen] = useState(false);
+    const currentNavItem = useLocation();
+    
     return (
-        <nav className='flex-col py-4 flex sm:flex-row items-center gap-6'>
+        <nav className='flex-col p-4 flex sm:flex-row items-center gap-6 bg-zinc-900'>
             <div className='flex flex-1 flex-row item w-full'>
                 <div className=' flex flex-row flex-1 font-extrabold'>
                     <h1 className='text-white text-3xl'>{APP_TITLE_P1}</h1>
@@ -24,9 +27,15 @@ const Navbar = ({ superheroList, getNavItem, currentNavItem }) => {
 
             <div className='hidden flex-[2] justify-end sm:flex'>
                 <ul onClick={(e) => getNavItem(e.target.id)} className='flex flex-row text-white justify-between gap-5 font-bold text-lg lg:gap-10'>
-                    <li id='superhero_nav' className={currentNavItem === NAV_ITEM_SUPERHERO ? "cursor-pointer text-red-600 underline underline-offset-8" :'cursor-pointer hover:text-red-600'}>{NAV_LINK_SUPERHERO}</li>
-                    <li id='about_nav' className={currentNavItem === NAV_ITEM_ABOUT ? "cursor-pointer text-red-600 underline underline-offset-8" :'cursor-pointer hover:text-red-600'}>{NAV_LINK_ABOUT}</li>
-                    <li id='fav_nav' className={currentNavItem === NAV_ITEM_FAVOURITE ? "cursor-pointer text-red-600 underline underline-offset-8" :'cursor-pointer hover:text-red-600'}>{NAV_LINK_FAVOURITES}</li>
+                    <li id='superhero_nav' className={currentNavItem.pathname === "/" ? "cursor-pointer text-red-600 underline underline-offset-8" :'cursor-pointer hover:text-red-600'}>
+                        <Link to="/">{NAV_LINK_SUPERHERO}</Link>
+                    </li>
+                    <li id='about_nav' className={currentNavItem.pathname === "/about" ? "cursor-pointer text-red-600 underline underline-offset-8" :'cursor-pointer hover:text-red-600'}>
+                        <Link to="/about">{NAV_LINK_ABOUT}</Link>
+                    </li>
+                    <li id='fav_nav' className={currentNavItem.pathname === "/favourite" ? "cursor-pointer text-red-600 underline underline-offset-8" :'cursor-pointer hover:text-red-600'}>
+                        <Link to="/favourite">{NAV_LINK_FAVOURITES}</Link>
+                    </li>
                 </ul>
             </div>
             {menuOpen && <Menu />}
