@@ -7,11 +7,11 @@ const FilterBar = ({ filterTitle }) => {
     const { modalState, setModalState } = useContext(SuperHeroAppContext);
     
     return (
-        <div className='flex flex-row pb-2 items-center justify-between sm:hidden '>
+        <div className='flex flex-row pb-2 sm:pb-0 items-center justify-between'>
             <div className='flex flex-row sm:hidden'>
                 <h1 className='text-red-600 text-2xl font-bold'>{filterTitle}</h1>
             </div>
-            <span onTouchEnd={() => setModalState(true)}>
+            <span className=' cursor-pointer' onTouchEnd={() => setModalState(true)} onClick={() => setModalState(true)}>
                 <LuFilter color='white' size={24} />
             </span>
             {modalState ? <Modal /> : null}

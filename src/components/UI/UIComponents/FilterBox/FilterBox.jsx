@@ -2,6 +2,7 @@ import React, { useContext, useState } from 'react'
 import { FaAngleDown, FaAngleUp, FaCheck } from "react-icons/fa";
 import { SuperHeroAppContext } from '../../../Context/AppContext';
 import { GrFormNextLink, GrFormPreviousLink  } from "react-icons/gr";
+import { ALPHABET, COUNT, PAGE } from '../../../utils/strings';
 
 const FilterBox = () => {
     const { setModalState, filterBoxState, setFilterBoxState } = useContext(SuperHeroAppContext);
@@ -19,7 +20,7 @@ const FilterBox = () => {
     }
 
     return (
-        <div onTouchEnd={e => e.stopPropagation()} className=' bg-zinc-800 z-50 rounded-br-xl rounded-bl-xl rounded-tl-xl border-[1.5px] border-red-600 absolute grid grid-cols-1 right-[25px] top-[180px] w-[200px] h-[240px] p-4'>
+        <div onTouchEnd={e => e.stopPropagation()} className=' bg-zinc-800 z-50 rounded-br-xl rounded-bl-xl rounded-tl-xl border-[1.5px] border-red-600 absolute grid grid-cols-1 right-[15px] top-[75px] w-[200px] h-[240px] p-4'>
             <div className='flex flex-row justify-between text-white items-center'>
                 <h1>{currentFilterBoxState.alphabeticalOrderIncresing ? "A-Z" : "Z-A"}</h1>
                 <div onClick={() => setCurrentFilterBoxState(filterState => {
@@ -31,18 +32,17 @@ const FilterBox = () => {
                 </div>
             </div>
             <div className='flex flex-row justify-between text-white items-center'>
-                <h1>Count</h1>
+                <h1>{COUNT}</h1>
                 <select defaultValue={currentFilterBoxState.count} className='bg-zinc-800 outline-none font-semibold' name="superhero_count" id="superhero_count">
-                    <option value="10">10</option>
-                    <option value="20">20</option>
-                    <option value="30">30</option>
-                    <option value="40">40</option>
-                    <option value="50">50</option>
-                    <option value="60">60</option>
+                    {
+                        [...new Array(6)].map((item, index) => {
+                            return <option key={index} value={`${(index + 1) * 10}`}>{(index + 1 )* 10}</option>
+                        })
+                    }
                 </select>
             </div>
             <div className='flex flex-row justify-between text-white items-center'>
-                <h1>Alphabet</h1>
+                <h1>{ALPHABET}</h1>
                 <input
                     className='w-[30px] border-2 border-red-600 rounded-lg bg-transparent text-center outline-none focus:bg-slate-500'
                     value={currentFilterBoxState.currentAlphabet}
@@ -56,7 +56,7 @@ const FilterBox = () => {
                 />
             </div>
             <div className='flex flex-row justify-between text-white items-center'>
-                <h1>Page</h1>
+                <h1>{PAGE}</h1>
                 <span className='flex flex-row gap-2'>
                     <div onTouchEnd={() => handlePageMovement("PREVIOUS")} className='border-[2px] border-red-600 rounded-lg px-2 hover:bg-white hover:bg-opacity-10'>
                         <GrFormPreviousLink size={25} />
@@ -67,7 +67,7 @@ const FilterBox = () => {
                 </span>
             </div>
             <div className='flex flex-row justify-end' onTouchEnd={() => setFilterBoxState(currentFilterBoxState)}>
-                <button onTouchEnd={() => setTimeout(() => setModalState(false), 300)}>
+                <button onTouchEnd={() => setTimeout(() => setModalState(false), 300)} onClick={() => setTimeout(() => setModalState(false), 300)}>
                     <FaCheck color='red'/>
                 </button>
             </div>
