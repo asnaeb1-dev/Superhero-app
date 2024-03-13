@@ -7,7 +7,7 @@ const FilterBar = ({ filterTitle }) => {
     const { modalState, setModalState } = useContext(SuperHeroAppContext);
     
     return (
-        <div className='flex flex-row pb-2 sm:pb-0 items-center justify-between'>
+        <div className='flex flex-row pb-2 sm:pb-0 items-center bg-zinc-900 justify-between'>
             <div className='flex flex-row sm:hidden'>
                 <h1 className='text-red-600 text-2xl font-bold'>{filterTitle}</h1>
             </div>

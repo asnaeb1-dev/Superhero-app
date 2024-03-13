@@ -10,8 +10,12 @@ import { FaXmark } from "react-icons/fa6";
 //components
 import AutoSuggestList from '../AutoSuggestList/AutoSuggestList';
 import { SuperHeroAppContext } from "../../../Context/AppContext"
+import useToggle from "../../../CustomHooks/useToggle"
 import Menu from '../Menu/Menu';
 import { Link, useLocation } from 'react-router-dom';
+
+//styles
+import "../../styles/navbaranim.css"
 
 const Navbar = ({ superheroList, getNavItem }) => {
     const { searchText, setSearchText} = useContext(SuperHeroAppContext);
@@ -37,22 +41,8 @@ const Navbar = ({ superheroList, getNavItem }) => {
         }
     }
 
-    // useEffect(() => {
-    //     let timeout;
-    //     if(isSearchBoxOpen) {
-    //             timeout = setTimeout(() => {
-    //                 if(searchText.length === 0) {
-    //                     setSearchBoxOpen();
-    //                     navbarRef.current.classList.remove("animate-slide-left");
-    //                     navbarRef.current.classList.add("animate-slide-right");    
-    //                 }
-    //             }, 5000);
-    //     }
-    //     return () => clearTimeout(timeout)
-    // }, [isSearchBoxOpen])
-
     return (
-        <nav className='flex-col py-4 flex sm:flex-row items-center gap-6 flex-1 bg-zinc-900'>
+        <nav className='flex-col py-4 flex sm:flex-row items-center gap-6 flex-1 bg-zinc-900 w-full'>
             <div className='flex flex-1 flex-row item w-full'>
                 <div className=' flex flex-row flex-1 font-extrabold'>
                     <h1 className='text-white text-3xl'>{APP_TITLE_P1}</h1>
@@ -77,10 +67,17 @@ const Navbar = ({ superheroList, getNavItem }) => {
                 </ul>
             </div>
             {menuOpen && <Menu />}
-            <div ref={navbarRef} className={`flex flex-col justify-end relative`}>
+            <div ref={navbarRef} className={`flex flex-col justify-end relative w-full sm:w-auto`}>
                 <form id="search-form" className={`border-2 border-white ${searchText.length === 0 ? "rounded-2xl" : "rounded-t-2xl"} px-4 py-2 flex flex-row`} onSubmit={e => (e.preventDefault(), handleSearchSubmit(e.target.superheroname.value))}>
-                    <input onChange={e => (setSearchText(e.target.value))} value={searchText} name='superheroname' className={`text-red-600 ${isSearchBoxOpen ? "w-full" : "w-0"} bg-transparent outline-none font-semibold`} type='text' placeholder={SEARCH_TEXT} />
-                    <button onClick={handleSearchClearButtonClick}>
+                    <input
+                        onChange={e => (setSearchText(e.target.value))}
+                        value={searchText}
+                        name='superheroname'
+                        className={`text-red-600 w-full sm:${(isSearchBoxOpen ? "w-full" : "w-0")} bg-transparent outline-none font-semibold`}
+                        type='text'
+                        placeholder={SEARCH_TEXT}
+                    />
+                    <button className=' outline-none' onClick={() => window.innerWidth > 640 ? handleSearchClearButtonClick() : setSearchText("")}>
                     {
                         searchText && searchText.length > 0 ?
                             <FaXmark color='red' />:

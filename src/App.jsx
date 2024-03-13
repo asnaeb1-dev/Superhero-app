@@ -11,7 +11,7 @@ import { getSuperheroList, searchSuperHero } from './components/services/api'
 import NavBar from "./components/UI/UIComponents/Navbar/Navbar";
 
 const App = () => {
-    const { filterBoxState, searchText, isAutoSuggestOpen, setAutoSuggestOpen, mainSuperHeroList, setMainSuperHeroList, showSuperheroModal } = useContext(SuperHeroAppContext)
+    const { searchText, isAutoSuggestOpen, setAutoSuggestOpen } = useContext(SuperHeroAppContext)
 	const [superheroList, setSuperHeroList] = useState([]);
 
     useEffect(() => {
@@ -30,7 +30,7 @@ const App = () => {
 
 	return (
 		<BrowserRouter>
-			<div className='w-full bg-zinc-90'>
+			<div className='w-full bg-zinc-90 flex bg-zinc-900 flex-col sm:flex-row sm:gap-5 px-4'>
                 <NavBar superheroList={superheroList} getNavItem={navItem => setCurrentNavItem(navItem)} />
                 <FilterBar filterTitle={"Superhero"} />
             </div>

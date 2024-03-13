@@ -13,7 +13,7 @@ export const searchSuperHero = async (superheroName) => {
 export const getSuperheroList = async(startIndex = 1, count = 20, alphabet = "a") => {
     const superheroEndpoints = [];
     startIndex = alphabet === "A" || alphabet === "a" ? startIndex : getAlphabetIndex(alphabet);
-    for(let i = startIndex;i<startIndex + count;i++) {
+    for(let i = startIndex;i<startIndex + Number(count);i++) {
         superheroEndpoints.push(`https://superheroapi.com/api.php/2827483254201187/${i}`)
     }
     const responses = await Promise.all(superheroEndpoints.map(link => fetch(link)));

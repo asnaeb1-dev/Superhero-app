@@ -11,8 +11,19 @@ const FilterBox = () => {
     const handlePageMovement = (pageMovement = "NEXT") => {
         switch (pageMovement) {
             case "PREVIOUS":
+                if(filterBoxState.pageNumber - filterBoxState.count < 2) return;
+                setCurrentFilterBoxState(filterState => {
+                    const newState = {...filterState}
+                    newState.pageNumber-=newState.count;
+                    return newState
+                })
                 break;
             case "NEXT":
+                setCurrentFilterBoxState(filterState => {
+                    const newState = {...filterState}
+                    newState.pageNumber+=newState.count;
+                    return newState
+                })
                 break;
             default:
                 break;
@@ -20,20 +31,32 @@ const FilterBox = () => {
     }
 
     return (
-        <div onTouchEnd={e => e.stopPropagation()} className=' bg-zinc-800 z-50 rounded-br-xl rounded-bl-xl rounded-tl-xl border-[1.5px] border-red-600 absolute grid grid-cols-1 right-[15px] top-[75px] w-[200px] h-[240px] p-4'>
+        <div onTouchEnd={e => e.stopPropagation()} className=' bg-zinc-800 z-50 rounded-br-xl rounded-bl-xl rounded-tl-xl border-[1.5px] border-red-600 absolute grid grid-cols-1 right-[15px] top-[174px] sm:top-[75px] w-[200px] h-[240px] p-4'>
             <div className='flex flex-row justify-between text-white items-center'>
                 <h1>{currentFilterBoxState.alphabeticalOrderIncresing ? "A-Z" : "Z-A"}</h1>
-                <div onClick={() => setCurrentFilterBoxState(filterState => {
-                    const newState = {...filterState}
-                    newState.alphabeticalOrderIncresing = !newState.alphabeticalOrderIncresing
-                    return newState
-                })}>
+                <div
+                    onClick={() => setCurrentFilterBoxState(filterState => {
+                        const newState = {...filterState}
+                        newState.alphabeticalOrderIncresing = !newState.alphabeticalOrderIncresing
+                        return newState
+                    })}
+                >
                     { currentFilterBoxState.alphabeticalOrderIncresing ? <FaAngleDown /> : <FaAngleUp /> }
                 </div>
             </div>
             <div className='flex flex-row justify-between text-white items-center'>
                 <h1>{COUNT}</h1>
-                <select defaultValue={currentFilterBoxState.count} className='bg-zinc-800 outline-none font-semibold' name="superhero_count" id="superhero_count">
+                <select 
+                    onChange={e => setCurrentFilterBoxState(filterState => {
+                        const newState = {...filterState};
+                        newState.count = e.target.value;
+                        return newState;
+                    })} 
+                    defaultValue={currentFilterBoxState.count}
+                    className='bg-zinc-800 outline-none font-semibold'
+                    name="superhero_count"
+                    id="superhero_count"
+                >
                     {
                         [...new Array(6)].map((item, index) => {
                             return <option key={index} value={`${(index + 1) * 10}`}>{(index + 1 )* 10}</option>
@@ -48,10 +71,11 @@ const FilterBox = () => {
                     value={currentFilterBoxState.currentAlphabet}
                     maxLength={1}
                     type={"text"}
+                    style={{textTransform: "uppercase"}}
                     onChange={e => setCurrentFilterBoxState(filterState => {
                         const newState = {...filterState};
                         newState.currentAlphabet = e.target.value;
-                        return newState
+                        return newState;
                     })}
                 />
             </div>
