@@ -22,6 +22,19 @@ export const getSuperheroList = async(startIndex = 1, count = 20, alphabet = "a"
     return results;
 }
 
+export const getSuperheroListBasedOnIDS = async(idList = []) => {
+    if(idList.length === 0) return;
+    console.log(idList);
+    const superheroEndpoints = [];
+    for(let id of idList) {
+        superheroEndpoints.push(`https://superheroapi.com/api.php/2827483254201187/${id}`)
+    }
+    const responses = await Promise.all(superheroEndpoints.map(link => fetch(link)));
+    const results = await Promise.all(responses.map(resp => resp.json()))
+    console.log("res", results);
+    return results;
+}
+
 const getAlphabetIndex = alphabet => {
     switch (alphabet) {
         case "b":
