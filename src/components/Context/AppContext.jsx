@@ -3,13 +3,14 @@ export const SuperHeroAppContext = createContext();
 
 const AppContext = ({ children }) => {
     const [searchText, setSearchText] = useState('');
-    const [darkMode, setDarkMode] = useState(true)
     const [isAutoSuggestOpen, setAutoSuggestOpen] = useState(false)
     const [superHeroInfo, setSuperHeroInfo] = useState({});
     const [showSuperheroModal, setShowSuperHeroModal] = useState(false)
     const [mainSuperHeroList, setMainSuperHeroList] = useState([])
     const [currentSuperHeroID, setCurrentSuperHeroID] = useState(-1);
     const [isFilterBoxOpen, setFilterBoxOpen] = useState(false);
+
+    const [isNavLinkMenuOpen, setNavLinkMenuOpen] = useState(false);
 
     const[modalState, setModalState] = useState(false)
 
@@ -25,8 +26,6 @@ const AppContext = ({ children }) => {
     const state = {
         searchText,
         setSearchText,
-        darkMode,
-        setDarkMode,
         isAutoSuggestOpen,
         setAutoSuggestOpen,
         superHeroInfo,
@@ -42,7 +41,9 @@ const AppContext = ({ children }) => {
         modalState,
         setModalState,
         filterBoxState, 
-        setFilterBoxState
+        setFilterBoxState,
+        isNavLinkMenuOpen,
+        setNavLinkMenuOpen
     }
     return (
         <SuperHeroAppContext.Provider value={state}>

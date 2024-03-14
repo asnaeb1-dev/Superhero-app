@@ -38,6 +38,7 @@ export const HAIR_COLOR = "HAIR-COLOR";
 export const ALPHABET = "Alphabet";
 export const COUNT = "Count";
 export const PAGE = "Page";
+export const NEXT_TEXT = "Next"
 
 export const MODAL_SIZE = {
     "CLOSED": 0,

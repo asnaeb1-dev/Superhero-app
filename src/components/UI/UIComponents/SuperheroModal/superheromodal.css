@@ -1,6 +1,5 @@
 .animate-height {
     animation: slideIn 0.25s linear;
-    height: 408px;
 }
 
 .animate-height-full {
@@ -13,9 +12,22 @@
 
 .animate-height-full-to-reduce {
     animation: fullToZero 0.25s linear forwards;
+}
+
+.animate-slide-in-half {
+    animation: fullToHalf 0.25s linear forwards;
 
 }
 
+@keyframes fullToHalf {
+    from {
+        height: calc(100% - 72px);
+    }
+
+    to {
+        transform: 408px;
+    }
+}
 
 @keyframes fullToZero {
     from {
