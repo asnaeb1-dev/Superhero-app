@@ -1,14 +1,14 @@
 import React, { useEffect, useContext, useState } from 'react'
 import MainAppScreen from './components/UI/screens/MainAppScreen';
-import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import { BrowserRouter, Route, Routes, useLocation } from 'react-router-dom';
 import FavouritesScreen from './components/UI/screens/FavouritesScreen';
 import AboutScreen from "./components/UI/screens/AboutScreen";
 import FilterBar from './components/UI/UIComponents/FilterBar/FilterBar';
 import { SuperHeroAppContext } from './components/Context/AppContext';
-import { NAV_ITEM_FAVOURITE, NAV_ITEM_SUPERHERO } from './components/utils/strings'
-import { getSuperheroList, searchSuperHero } from './components/services/api'
+import { searchSuperHero } from './components/services/api'
 
 import NavBar from "./components/UI/UIComponents/Navbar/Navbar";
+import { NAV_LINK_SUPERHERO } from './components/utils/strings';
 
 const App = () => {
     const { searchText, isAutoSuggestOpen, setAutoSuggestOpen } = useContext(SuperHeroAppContext)
@@ -31,8 +31,8 @@ const App = () => {
 	return (
 		<BrowserRouter>
 			<div className='w-full bg-zinc-90 flex bg-zinc-900 flex-col sm:flex-row sm:gap-5 px-4'>
-                <NavBar superheroList={superheroList} getNavItem={navItem => setCurrentNavItem(navItem)} />
-                <FilterBar filterTitle={"Superhero"} />
+                <NavBar superheroList={superheroList} />
+                <FilterBar filterTitle={NAV_LINK_SUPERHERO} />
             </div>
 			<Routes>
 				<Route path='/' Component={MainAppScreen} />

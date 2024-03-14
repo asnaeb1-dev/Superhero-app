@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useRef, useState } from 'react'
 import { SuperHeroAppContext } from '../../../Context/AppContext';
-import { IoIosArrowUp } from "react-icons/io";
+import { IoIosArrowUp, IoIosArrowDown } from "react-icons/io";
 import { MdFavorite, MdFavoriteBorder, MdOutlineNavigateNext  } from "react-icons/md";
 import { FaArrowLeft } from "react-icons/fa";
 
@@ -9,7 +9,7 @@ import { getSuperHero } from '../../../services/api';
 import SuperHeroTab from './SuperHeroTabs/SuperHeroTab';
 
 import "./superheromodal.css";
-import { MODAL_SIZE } from '../../../utils/strings';
+import { MODAL_SIZE, NEXT_TEXT } from '../../../utils/strings';
 import { getFavourites, saveFavourite } from '../../../services/storage';
 
 const SuperheroModal = () => {
@@ -17,34 +17,26 @@ const SuperheroModal = () => {
     const [isSlideShowEnabled, setSlideShowEnabled] = useState(false);
     const [isHover, setHover] = useState(false);
     const [superheroData, setSuperheroData] = useState({});
-    const containerRef = useRef()
+
     const [currentModalSize, setCurrentModalSize] = useState(MODAL_SIZE.CLOSED);
     const [isFavorite, setFavorite] = useState(false);
     const [favouriteList, setFavouriteList] = useState([...getFavourites()]);
 
     useEffect(() => {
+        //get details from API endpoint
         (async() => {
             const response = await getSuperHero(currentSuperHeroID);
             console.log(response);
             setSuperheroData(response);
         })()
-    }, [currentSuperHeroID])
 
-    useEffect(() => {
-        if(showSuperheroModal) {
-            containerRef.current.classList.add("animate-height")
-            setCurrentModalSize(MODAL_SIZE.MID_SIZE)
-        } 
-    }, [showSuperheroModal])
-
-    useEffect(() => {
-        console.log("ID", favouriteList.indexOf(currentSuperHeroID));
+        //check for favorites
         if(favouriteList.indexOf(currentSuperHeroID) === -1) {
             setFavorite(false);
         } else {
             setFavorite(true);
         }
-    }, [currentSuperHeroID])
+    }, [currentSuperHeroID]);
 
     useEffect(() => {
         if(isFavorite) {
@@ -75,18 +67,14 @@ const SuperheroModal = () => {
     }
 
     const handleModalSize = () => {
-        if(currentModalSize === MODAL_SIZE.MID_SIZE) {
-            setCurrentModalSize(MODAL_SIZE.FULL_SIZE);
-            containerRef.current.classList.remove("animate-height-reduce");
-            containerRef.current.classList.remove("animate-height");
-            containerRef.current.classList.add("animate-height-full");
-        } else {
-            setCurrentModalSize(MODAL_SIZE.MID_SIZE);
-            containerRef.current.classList.remove("animate-height-full");
-            containerRef.current.classList.remove("animate-height");
-            containerRef.current.classList.add("animate-height-reduce");
-        }
+        setCurrentModalSize(modalSize => {
+            if(modalSize === MODAL_SIZE.MID_SIZE) {
+                return MODAL_SIZE.FULL_SIZE
+            }
+            return MODAL_SIZE.MID_SIZE
+        })
     }
+
     /*
         sm	640px	@media (min-width: 640px) { ... }
         md	768px	@media (min-width: 768px) { ... }
@@ -96,17 +84,21 @@ const SuperheroModal = () => {
     */
     return createPortal(
         <div onTouchEnd={() => (setShowSuperHeroModal(false))} style={{ backgroundColor: "rgba(0, 0, 0, 0.4)" }} className='fixed w-full h-full inset-0 flex justify-center items-center'>
-            <div onTouchEnd={e => e.stopPropagation()} ref={containerRef} className={`w-full md:w-4/5 z-20 md:h-3/5 lg:h-3/5 xl:w-3/5 2xl:h-2/3 rounded-t-2xl bottom-0 md:top-0 md:m-auto absolute md: bg-zinc-800 flex flex-col p-4 md:rounded-2xl`}>
+            <div onTouchEnd={e => e.stopPropagation()} className={`w-full h-[408px] ${currentModalSize === MODAL_SIZE.MID_SIZE ? "animate-height-full" : (currentModalSize === MODAL_SIZE.FULL_SIZE ? "animate-slide-in-half": "animate-height")} md:w-4/5 z-20 md:h-3/5 lg:h-3/5 xl:w-3/5 2xl:h-2/3 rounded-t-2xl bottom-0 md:top-0 md:m-auto absolute md: bg-zinc-800 flex flex-col p-4 md:rounded-2xl`}>
                 {/* Modal Header */}
                 <div className='w-full h-14 flex items-center justify-between'>
-                    <div className='flex flex-row items-center w-full h-full md:hidden' onClick={handleModalSize}>
-                        <IoIosArrowUp size={20} color='white' />
+                    <div className={`flex flex-row items-center w-full h-full md:hidden`} onClick={handleModalSize}>
+                        {
+                            currentModalSize === MODAL_SIZE.FULL_SIZE || currentModalSize === MODAL_SIZE.CLOSED ?
+                                <IoIosArrowUp color='white' className='text-2xl cursor-pointer' /> :
+                                <IoIosArrowDown color='white' className='text-2xl cursor-pointer' />
+                        }
                     </div>
-                    <div className=' cursor-pointer hidden md:block ml-2' onClick={() => setShowSuperHeroModal(false)}>
+                    <div className=' cursor-pointer hidden md:block ml-2' onClick={() => handleModalClose()}>
                         <FaArrowLeft size={20} color='red' />
                     </div>
                     <button onClick={() => setCurrentSuperHeroID(String(Number(currentSuperHeroID) + 1))} className='flex flex-row text-white items-center rounded-lg border-transparent border-2 hover:border-red-600 pl-2 pb-1'>
-                        <p>Next</p>
+                        <p>{NEXT_TEXT}</p>
                         <MdOutlineNavigateNext size={25} color="white" />
                     </button>
                 </div>

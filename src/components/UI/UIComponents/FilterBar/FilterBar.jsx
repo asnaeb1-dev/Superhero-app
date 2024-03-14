@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react'
+import { useContext } from 'react'
 import { SuperHeroAppContext } from '../../../Context/AppContext';
 import Modal from '../SuperheroModal/Modal';
 import { LuFilter } from "react-icons/lu";

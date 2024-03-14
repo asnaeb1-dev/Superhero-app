@@ -16,11 +16,13 @@ import { Link, useLocation } from 'react-router-dom';
 
 //styles
 import "../../styles/navbaranim.css"
+import { ClipLoader } from 'react-spinners';
 
 const Navbar = ({ superheroList, getNavItem }) => {
-    const { searchText, setSearchText} = useContext(SuperHeroAppContext);
-    const [menuOpen, setMenuOpen] = useState(false);
+    const { searchText, setSearchText, isAutoSuggestOpen, isNavLinkMenuOpen, setNavLinkMenuOpen } = useContext(SuperHeroAppContext);
     const [isSearchBoxOpen, setSearchBoxOpen] = useToggle();
+    const [isSearchResultsLoading, setSearchResultsLoading] = useToggle();
+
     const navbarRef = useRef();
     const currentNavItem = useLocation();
 
@@ -41,6 +43,7 @@ const Navbar = ({ superheroList, getNavItem }) => {
         }
     }
 
+
     return (
         <nav className='flex-col py-4 flex sm:flex-row items-center gap-6 flex-1 bg-zinc-900 w-full'>
             <div className='flex flex-1 flex-row item w-full'>
@@ -48,8 +51,8 @@ const Navbar = ({ superheroList, getNavItem }) => {
                     <h1 className='text-white text-3xl'>{APP_TITLE_P1}</h1>
                     <h1 className=' text-red-600 text-3xl'>{APP_TITLE_P2}</h1>
                 </div>
-                <button className='sm:hidden' onClick={() => setMenuOpen(!menuOpen)}>
-                    {!menuOpen ? <IoMenu color='white' size={30} /> : <FaXmark color='white' size={30}/>}
+                <button className='sm:hidden' onClick={() => setNavLinkMenuOpen(!isNavLinkMenuOpen)}>
+                    {!isNavLinkMenuOpen ? <IoMenu color='white' size={30} /> : <FaXmark color='white' size={30}/>}
                 </button>
             </div>
 
@@ -66,17 +69,22 @@ const Navbar = ({ superheroList, getNavItem }) => {
                     </li>
                 </ul>
             </div>
-            {menuOpen && <Menu />}
+            {isNavLinkMenuOpen && <Menu />}
             <div ref={navbarRef} className={`flex flex-col justify-end relative w-full sm:w-auto`}>
-                <form id="search-form" className={`border-2 border-white ${searchText.length === 0 ? "rounded-2xl" : "rounded-t-2xl"} px-4 py-2 flex flex-row`} onSubmit={e => (e.preventDefault(), handleSearchSubmit(e.target.superheroname.value))}>
-                    <input
-                        onChange={e => (setSearchText(e.target.value))}
-                        value={searchText}
-                        name='superheroname'
-                        className={`text-red-600 w-full sm:${(isSearchBoxOpen ? "w-full" : "w-0")} bg-transparent outline-none font-semibold`}
-                        type='text'
-                        placeholder={SEARCH_TEXT}
-                    />
+                <form id="search-form" className={`border-2 border-white ${searchText.length === 0 ? "rounded-2xl" : "rounded-t-2xl"} px-4 py-2 flex flex-row justify-between ${isSearchResultsLoading ? "gap-2" : ''}`} onSubmit={e => (e.preventDefault())}>
+                    <div className='flex flex-row w-full gap-2'>
+                        {
+                            isSearchResultsLoading && <ClipLoader color='rgb(220 38 38)' size={15} className='mt-1' />
+                        }
+                        <input
+                            onChange={e => (setSearchText(e.target.value))}
+                            value={searchText}
+                            name='superheroname'
+                            className={`text-red-600 w-full sm:${(isSearchBoxOpen ? "w-full" : "w-0")} bg-transparent outline-none font-semibold`}
+                            type='text'
+                            placeholder={SEARCH_TEXT}
+                        />    
+                    </div>
                     <button className=' outline-none' onClick={() => window.innerWidth > 640 ? handleSearchClearButtonClick() : setSearchText("")}>
                     {
                         searchText && searchText.length > 0 ?

@@ -1,0 +1,27 @@
+.animate-slide-from-right {
+    animation: slide-In-Right 0.25s linear;
+}
+
+.animate-slide-from-right-reverse {
+    animation: slide-In-Left 0.25s linear;
+}
+
+@keyframes slide-In-Right {
+    from {
+        width: 0px;
+    }
+
+    to {
+        width: 100%;
+    }
+}
+
+@keyframes slide-In-Left {
+    from {
+        width: 100%;
+    }
+
+    to {
+        width: 0px;
+    }
+}

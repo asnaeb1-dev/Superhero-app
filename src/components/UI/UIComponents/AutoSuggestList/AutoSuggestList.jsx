@@ -1,28 +1,20 @@
-import React, { useContext, useState } from 'react'
+import { useContext } from 'react'
 import { SuperHeroAppContext } from '../../../Context/AppContext'
 import "./autosuggestlist.css";
 
 const AutoSuggestList = ({ superheroList = [] }) => {
-    const { isAutoSuggestOpen, setAutoSuggestOpen, showSuperheroModal, setShowSuperHeroModal, setCurrentSuperHeroID, searchText } = useContext(SuperHeroAppContext)
-    const [windowSize, setWindowSize] = useState(document.getElementById('search-form').getBoundingClientRect().width);
+    const { isAutoSuggestOpen, setAutoSuggestOpen, setShowSuperHeroModal, setCurrentSuperHeroID, searchText, setSearchText} = useContext(SuperHeroAppContext)
 
     const handleSelect = id => {
         setAutoSuggestOpen(false)
-        setTimeout(() => {
-            setShowSuperHeroModal(true)
-            console.log("ID", id);
-            setCurrentSuperHeroID(id)    
-        }, 500)
+        setShowSuperHeroModal(true)
+        setCurrentSuperHeroID(id);
+        setSearchText(""); 
     }
     
-    window.addEventListener("resize", e => {
-        const width = document.getElementById('search-form').getBoundingClientRect().width;
-        setWindowSize(width)
-    })
-
     if(!isAutoSuggestOpen) return null;
     return (
-        <div onClick={e => handleSelect(e)} className={`bg-zinc-900 max-h-[350px] border-2 border-white ${searchText.length === 0 ? "rounded-xl" : "rounded-b-2xl"} overflow-y-scroll absolute top-[41px] main-content w-full`}>
+        <div className={`bg-zinc-900 max-h-[350px] border-2 border-white ${searchText.length === 0 ? "rounded-xl" : "rounded-b-2xl"} overflow-y-scroll absolute top-[41px] main-content w-full`}>
             {
                 superheroList && superheroList.map((superhero, index) => {
                     return (
@@ -43,7 +35,7 @@ const AutoSuggestList = ({ superheroList = [] }) => {
 
 const AutoSuggestItem = ({ superheroName, superheroImage, superheroRealName, id, handleSelect }) => {
         return (
-        <div id={`${id}`} onClick={e => handleSelect(e.target.id)} className='flex flex-row h-16 gap-4 cursor-pointer  m-2 p-2 rounded-md hover:bg-red-600 hover:bg-opacity-20'>
+        <div id={`${id}`} onClick={() => handleSelect(id)} className='flex flex-row h-16 gap-4 cursor-pointer  m-2 p-2 rounded-md hover:bg-red-600 hover:bg-opacity-20'>
             <img className='rounded-md' src={superheroImage} alt={superheroName} />
             <div className='flex flex-col justify-start'>
                 <h1 className='text-white font-bold text-md'>{superheroName}</h1>
