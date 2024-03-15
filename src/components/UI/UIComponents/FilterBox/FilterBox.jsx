@@ -90,7 +90,7 @@ const FilterBox = () => {
                     </div>
                 </span>
             </div>
-            <div className='flex flex-row justify-end' onTouchEnd={() => setFilterBoxState(currentFilterBoxState)}>
+            <div className='flex flex-row justify-end' onClick={() => setFilterBoxState(currentFilterBoxState)} onTouchEnd={() => setFilterBoxState(currentFilterBoxState)}>
                 <button onTouchEnd={() => setTimeout(() => setModalState(false), 300)} onClick={() => setTimeout(() => setModalState(false), 300)}>
                     <FaCheck color='red'/>
                 </button>
