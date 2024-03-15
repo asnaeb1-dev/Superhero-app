@@ -28,7 +28,7 @@ import { searchSuperHero } from '../../../services/api';
  */
 
 const Navbar = () => {
-    const { searchText, setSearchText, isNavLinkMenuOpen, setNavLinkMenuOpen, isAutoSuggestOpen,setAutoSuggestOpen } = useContext(SuperHeroAppContext);
+    const { searchText, setSearchText, isNavLinkMenuOpen, setNavLinkMenuOpen, isAutoSuggestOpen,setAutoSuggestOpen, setCurrentNavItemState } = useContext(SuperHeroAppContext);
     const [isSearchBoxOpen, setSearchBoxOpen] = useToggle();
     const [isSearchResultsLoading, setSearchResultsLoading] = useToggle();
     const [searchResults, setSearchResults] = useState([]);
@@ -38,6 +38,26 @@ const Navbar = () => {
     const handleSearchClearButtonClick = () => {
         !isSearchBoxOpen ? setSearchBoxOpen() : searchText?.length > 0 ? setSearchText("") : setSearchBoxOpen();
     }
+
+    useEffect(() => {
+        switch(currentNavItem.pathname) {
+            case "/":
+                setCurrentNavItemState(NAV_LINK_SUPERHERO);
+                break;
+            
+            case "/about":
+                setCurrentNavItemState(NAV_LINK_ABOUT)
+                break;
+            
+            case "/favourite":
+                setCurrentNavItemState(NAV_LINK_FAVOURITES)
+                break;
+            
+            default:
+                setCurrentNavItemState(NAV_LINK_SUPERHERO)
+                break;
+        }
+    }, [currentNavItem])
 
     useEffect(() => {
         if(!searchText) return;
@@ -104,7 +124,7 @@ const Navbar = () => {
                 </form>
                 {
                     searchText ?
-                        <AutoSuggestList superheroList={searchResults} />:
+                        <AutoSuggestList searchText={searchText} superheroList={searchResults} />:
                         null
                 }
             </div>

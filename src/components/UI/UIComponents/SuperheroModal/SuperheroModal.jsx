@@ -25,7 +25,6 @@ const SuperheroModal = () => {
         //get details from API endpoint
         (async() => {
             const response = await getSuperHero(currentSuperHeroID);
-            console.log(response);
             setSuperheroData(response);
         })()
 

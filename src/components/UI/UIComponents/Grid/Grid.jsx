@@ -16,7 +16,8 @@ const Grid = ({ superheroList }) => {
     return (
         <div
             onClick={(e) => e.target.id && handleSuperHeroID(e.target.id)}
-            className={`w-full grid grid-cols-2 gap-3 mb-4 px-4 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6`}>
+            className={`w-full grid grid-cols-2 gap-3 mb-4 px-4 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 pb-4`}
+        >
             {
                 superheroList && (filterBoxState.alphabeticalOrderIncresing ? superheroList.map((superhero, index) => {
                     return (
@@ -57,9 +58,8 @@ const GridItem = ({ superheroImage, superheroName, superheroRealName, superheroI
             gridItemRef.current.classList.remove(`animate-height-pop`);
         }
     }, [mouseEnter])
-    console.log("stats", superheroPowerStats);
     return (
-        <div className='rounded-xl h-[300px] cursor-pointer bg-no-repeat bg-cover bg-center xl:h-[450px]' style={{ backgroundImage: `url(${superheroImage})` }}>
+        <div className='rounded-xl h-[300px] cursor-pointer bg-no-repeat bg-cover bg-center xl:h-[450px] ' style={{ backgroundImage: `url(${superheroImage})` }}>
             <div id={`superhero_id_${superheroID}`} className='w-full h-full flex items-end flex-col'>
                 <div onClick={() => console.log("touchend")} onTouchEnd={e => console.log("click")} className='flex-1 p-4'>
                     <FaInfoCircle onMouseEnter={() => setMouseEnter(true)} onMouseLeave={() => setMouseEnter(false)} size={23} color={mouseEnter ? 'rgb(220 38 38)' : 'white' } />

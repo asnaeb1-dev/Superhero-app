@@ -31,7 +31,7 @@ const FilterBox = () => {
     }
 
     return (
-        <div onTouchEnd={e => e.stopPropagation()} className=' bg-zinc-800 z-50 rounded-br-xl rounded-bl-xl rounded-tl-xl border-[1.5px] border-red-600 absolute grid grid-cols-1 right-[15px] top-[174px] sm:top-[75px] w-[200px] h-[240px] p-4'>
+        <div onTouchEnd={e => e.stopPropagation()} onClick={e => e.stopPropagation()} className=' bg-zinc-800 z-50 rounded-br-xl rounded-bl-xl rounded-tl-xl border-[1.5px] border-red-600 absolute grid grid-cols-1 right-[15px] top-[174px] sm:top-[75px] w-[200px] h-[240px] p-4'>
             <div className='flex flex-row justify-between text-white items-center'>
                 <h1>{currentFilterBoxState.alphabeticalOrderIncresing ? "A-Z" : "Z-A"}</h1>
                 <div

@@ -40,6 +40,8 @@ export const COUNT = "Count";
 export const PAGE = "Page";
 export const NEXT_TEXT = "Next"
 
+export const EMPTY_MESSAGE = "Nothing here yet :'(";
+
 export const MODAL_SIZE = {
     "CLOSED": 0,
     "MID_SIZE": 1,
