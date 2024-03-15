@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react'
 import { SuperHeroAppContext } from '../../Context/AppContext'
-import { getSuperheroList, searchSuperHero } from '../../services/api'
+import { getSuperheroList } from '../../services/api'
 import Grid from '../UIComponents/Grid/Grid'
 import SuperheroModal from '../UIComponents/SuperheroModal/SuperheroModal'
 
@@ -28,7 +28,7 @@ const MainAppScreen = () => {
     }, [filterBoxState.pageNumber]);
 
     return (
-        <div className=' bg-zinc-900 w-full overflow-y-hidden'>
+        <div className=' bg-zinc-900 w-full h-[calc(100vh_-_160px)] sm:h-[calc(100vh_-_74px)] overflow-y-scroll'>
             <Grid superheroList={mainSuperHeroList}/>
             {showSuperheroModal ? <SuperheroModal /> : null }
         </div>

@@ -17,7 +17,7 @@ const FavouritesScreen = () => {
     }, [superheroIDList])
 
     return (
-        <div className='w-full h-full  bg-zinc-900'>
+        <div className='w-full h-[calc(100vh_-_160px)] sm:h-[calc(100vh_-_74px)] overflow-y-scroll bg-zinc-900'>
             <Grid superheroList={mainSuperHeroList} />
         </div>
     )
