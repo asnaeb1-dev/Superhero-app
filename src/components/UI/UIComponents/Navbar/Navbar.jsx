@@ -17,32 +17,41 @@ import { Link, useLocation } from 'react-router-dom';
 //styles
 import "../../styles/navbaranim.css"
 import { ClipLoader } from 'react-spinners';
+import { searchSuperHero } from '../../../services/api';
 
-const Navbar = ({ superheroList, getNavItem }) => {
-    const { searchText, setSearchText, isAutoSuggestOpen, isNavLinkMenuOpen, setNavLinkMenuOpen } = useContext(SuperHeroAppContext);
+/**
+ * Things to fix:
+ * 1) navbar animation improper
+ * 2) try to make animation in classname itself
+ * 3) add loader
+ * 4) move search calls to navbar
+ */
+
+const Navbar = () => {
+    const { searchText, setSearchText, isNavLinkMenuOpen, setNavLinkMenuOpen, isAutoSuggestOpen,setAutoSuggestOpen } = useContext(SuperHeroAppContext);
     const [isSearchBoxOpen, setSearchBoxOpen] = useToggle();
     const [isSearchResultsLoading, setSearchResultsLoading] = useToggle();
+    const [searchResults, setSearchResults] = useState([]);
 
-    const navbarRef = useRef();
     const currentNavItem = useLocation();
 
     const handleSearchClearButtonClick = () => {
-        if(!isSearchBoxOpen) {
-            //OPEN SEARCH BOX
-            setSearchBoxOpen();
-            navbarRef.current.classList.remove("animate-slide-right");
-            navbarRef.current.classList.add("animate-slide-left");
-        } else {
-            if(searchText && searchText.length > 0) {
-                setSearchText("");
-            } else {
-                setSearchBoxOpen();
-                navbarRef.current.classList.remove("animate-slide-left");
-                navbarRef.current.classList.add("animate-slide-right");    
-            }
-        }
+        !isSearchBoxOpen ? setSearchBoxOpen() : searchText?.length > 0 ? setSearchText("") : setSearchBoxOpen();
     }
 
+    useEffect(() => {
+        if(!searchText) return;
+        const searchTimer = setTimeout(() => {
+            (async() => {
+                const searchResponse = await searchSuperHero(searchText);
+                setSearchResults(searchResponse?.results);
+                if(!isAutoSuggestOpen) {
+                    setAutoSuggestOpen(true);
+                }
+            })()
+        }, 300)
+        return () => clearTimeout(searchTimer);
+    }, [searchText])
 
     return (
         <nav className='flex-col py-4 flex sm:flex-row items-center gap-6 flex-1 bg-zinc-900 w-full'>
@@ -70,7 +79,7 @@ const Navbar = ({ superheroList, getNavItem }) => {
                 </ul>
             </div>
             {isNavLinkMenuOpen && <Menu />}
-            <div ref={navbarRef} className={`flex flex-col justify-end relative w-full sm:w-auto`}>
+            <div className={`flex flex-col justify-end relative w-full sm:w-auto ${isSearchBoxOpen ? 'animate-slide-left' : (searchText?.length > 0 ? '' : 'animate-slide-right')}`}>
                 <form id="search-form" className={`border-2 border-white ${searchText.length === 0 ? "rounded-2xl" : "rounded-t-2xl"} px-4 py-2 flex flex-row justify-between ${isSearchResultsLoading ? "gap-2" : ''}`} onSubmit={e => (e.preventDefault())}>
                     <div className='flex flex-row w-full gap-2'>
                         {
@@ -80,7 +89,7 @@ const Navbar = ({ superheroList, getNavItem }) => {
                             onChange={e => (setSearchText(e.target.value))}
                             value={searchText}
                             name='superheroname'
-                            className={`text-red-600 w-full sm:${(isSearchBoxOpen ? "w-full" : "w-0")} bg-transparent outline-none font-semibold`}
+                            className={`text-red-600 focus:text-red-600 w-full sm:${(isSearchBoxOpen ? "w-full" : "w-0")} bg-transparent outline-none font-semibold`}
                             type='text'
                             placeholder={SEARCH_TEXT}
                         />    
@@ -95,7 +104,7 @@ const Navbar = ({ superheroList, getNavItem }) => {
                 </form>
                 {
                     searchText ?
-                        <AutoSuggestList superheroList={superheroList} />:
+                        <AutoSuggestList superheroList={searchResults} />:
                         null
                 }
             </div>
