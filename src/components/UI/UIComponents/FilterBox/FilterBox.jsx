@@ -2,15 +2,15 @@ import React, { useContext, useState } from 'react'
 import { FaAngleDown, FaAngleUp, FaCheck } from "react-icons/fa";
 import { SuperHeroAppContext } from '../../../Context/AppContext';
 import { GrFormNextLink, GrFormPreviousLink  } from "react-icons/gr";
-import { ALPHABET, COUNT, PAGE } from '../../../utils/strings';
+import { ALPHABET, COUNT, NEXT, PAGE, PREVIOUS } from '../../../utils/strings';
 
 const FilterBox = () => {
     const { setModalState, filterBoxState, setFilterBoxState } = useContext(SuperHeroAppContext);
     const [currentFilterBoxState, setCurrentFilterBoxState] = useState(filterBoxState);
 
-    const handlePageMovement = (pageMovement = "NEXT") => {
+    const handlePageMovement = (pageMovement = NEXT) => {
         switch (pageMovement) {
-            case "PREVIOUS":
+            case PREVIOUS:
                 if(filterBoxState.pageNumber - filterBoxState.count < 2) return;
                 setCurrentFilterBoxState(filterState => {
                     const newState = {...filterState}
@@ -18,7 +18,7 @@ const FilterBox = () => {
                     return newState
                 })
                 break;
-            case "NEXT":
+            case NEXT:
                 setCurrentFilterBoxState(filterState => {
                     const newState = {...filterState}
                     newState.pageNumber+=newState.count;
@@ -31,7 +31,7 @@ const FilterBox = () => {
     }
 
     return (
-        <div onTouchEnd={e => e.stopPropagation()} onClick={e => e.stopPropagation()} className=' bg-zinc-800 z-50 rounded-br-xl rounded-bl-xl rounded-tl-xl border-[1.5px] border-red-600 absolute grid grid-cols-1 right-[15px] top-[174px] sm:top-[75px] w-[200px] h-[240px] p-4'>
+        <div onTouchEnd={e => e.stopPropagation()} onClick={e => e.stopPropagation()} className=' bg-zinc-800 z-50 rounded-br-xl rounded-bl-xl rounded-tl-xl border-[1.5px] border-red-600 absolute grid grid-cols-1 right-[27px] top-[174px] sm:top-[63px] w-[200px] h-[240px] p-4'>
             <div className='flex flex-row justify-between text-white items-center'>
                 <h1>{currentFilterBoxState.alphabeticalOrderIncresing ? "A-Z" : "Z-A"}</h1>
                 <div

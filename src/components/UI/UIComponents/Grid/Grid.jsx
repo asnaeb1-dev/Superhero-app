@@ -3,6 +3,7 @@ import { FaInfoCircle } from "react-icons/fa";
 import { SuperHeroAppContext } from '../../../Context/AppContext';
 import "./animate.css";
 import QuickInfoBox from '../QuickInfoBox/QuickInfoBox';
+import SuperheroPlaceholder from "../../../../assets/superhero-alt.svg";
 
 const Grid = ({ superheroList }) => {
 
@@ -59,9 +60,9 @@ const GridItem = ({ superheroImage, superheroName, superheroRealName, superheroI
         }
     }, [mouseEnter])
     return (
-        <div className='rounded-xl h-[300px] cursor-pointer bg-no-repeat bg-cover bg-center xl:h-[450px]' style={{ backgroundImage: `url(${superheroImage})` }}>
+        <div className='rounded-xl h-[300px] cursor-pointer bg-no-repeat bg-cover bg-center xl:h-[450px]' style={{ backgroundImage: `${superheroImage ?`url(${superheroImage})` : `url(${SuperheroPlaceholder})`}` }}>
             <div id={`superhero_id_${superheroID}`} className='w-full h-full flex items-end flex-col'>
-                <div onClick={() => console.log("touchend")} onTouchEnd={e => console.log("click")} className='flex-1 p-4'>
+                <div className='flex-1 p-4'> 
                     <FaInfoCircle onMouseEnter={() => setMouseEnter(true)} onMouseLeave={() => setMouseEnter(false)} size={23} color={mouseEnter ? 'rgb(220 38 38)' : 'white' } />
                 </div>
                 <div ref={gridItemRef} className={`w-full flex flex-col ${mouseEnter ? 'h-4/5' : `animate-height-down-pop`} rounded-t-xl p-4 bg-black bg-opacity-50`}>

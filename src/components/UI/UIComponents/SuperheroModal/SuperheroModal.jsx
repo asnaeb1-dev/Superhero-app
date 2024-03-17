@@ -13,8 +13,7 @@ import { MODAL_SIZE, NEXT_TEXT } from '../../../utils/strings';
 import { getFavourites, saveFavourite } from '../../../services/storage';
 
 const SuperheroModal = () => {
-    const { setShowSuperHeroModal, showSuperheroModal, currentSuperHeroID, setCurrentSuperHeroID } = useContext(SuperHeroAppContext);
-    const [isSlideShowEnabled, setSlideShowEnabled] = useState(false);
+    const { setShowSuperHeroModal, currentSuperHeroID, setCurrentSuperHeroID } = useContext(SuperHeroAppContext);
     const [superheroData, setSuperheroData] = useState({});
 
     const [currentModalSize, setCurrentModalSize] = useState(MODAL_SIZE.CLOSED);
@@ -35,9 +34,9 @@ const SuperheroModal = () => {
         setFavouriteList(favList => {
             const newList = new Set(favList);
             if(newList.has(currentSuperHeroID)) {
-                newList.delete(currentSuperHeroID);
+                newList.delete(currentSuperHeroID)
             } else {
-                newList.add(currentSuperHeroID)
+                newList.add(currentSuperHeroID);
             }
             saveFavourite(Array.from(newList));
             return newList;
@@ -72,7 +71,7 @@ const SuperheroModal = () => {
                                 <IoIosArrowDown color='white' className='text-2xl cursor-pointer' />
                         }
                     </div>
-                    <div className=' cursor-pointer hidden md:block ml-2' onClick={() => handleModalClose()}>
+                    <div className=' cursor-pointer hidden md:block ml-2' onClick={() => setShowSuperHeroModal(false)}>
                         <FaArrowLeft size={20} color='red' />
                     </div>
                     <button onClick={() => setCurrentSuperHeroID(String(Number(currentSuperHeroID) + 1))} className='flex flex-row text-white items-center rounded-lg border-transparent border-2 hover:border-red-600 pl-2 pb-1'>

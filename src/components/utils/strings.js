@@ -42,6 +42,9 @@ export const NEXT_TEXT = "Next"
 
 export const EMPTY_MESSAGE = "Nothing here yet :'(";
 
+export const PREVIOUS = "PREVIOUS";
+export const NEXT = "NEXT";
+
 export const MODAL_SIZE = {
     "CLOSED": 0,
     "MID_SIZE": 1,

@@ -7,7 +7,7 @@ const Modal = () => {
     const { setModalState } = useContext(SuperHeroAppContext)
 
     return createPortal(
-        <div onTouchEnd={e =>(setModalState(false), e.stopPropagation())} onClick={() => setModalState(false)} style={{ backgroundColor: "rgba(0, 0, 0, 0.3)" }} className='w-full h-full fixed z-20 inset-0 bg-zinc-500'>
+        <div onTouchEnd={e =>(setModalState(false))} onClick={() => setModalState(false)} style={{ backgroundColor: "rgba(0, 0, 0, 0.3)" }} className='w-full h-full fixed z-20 inset-0 bg-zinc-500'>
             <FilterBox />
         </div>,
         document.getElementById("portal")
