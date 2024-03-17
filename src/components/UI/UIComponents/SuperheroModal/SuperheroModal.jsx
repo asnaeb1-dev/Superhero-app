@@ -19,7 +19,7 @@ const SuperheroModal = () => {
 
     const [currentModalSize, setCurrentModalSize] = useState(MODAL_SIZE.CLOSED);
     const [isFavorite, setFavorite] = useState(false);
-    const [favouriteList, setFavouriteList] = useState([...getFavourites()]);
+    const [favouriteList, setFavouriteList] = useState(new Set([...getFavourites()]));
 
     useEffect(() => {
         //get details from API endpoint
@@ -27,27 +27,22 @@ const SuperheroModal = () => {
             const response = await getSuperHero(currentSuperHeroID);
             setSuperheroData(response);
         })()
-
         //check for favorites
-        if(favouriteList.indexOf(currentSuperHeroID) === -1) {
-            setFavorite(false);
-        } else {
-            setFavorite(true);
-        }
+        setFavorite(favouriteList.has(currentSuperHeroID))
     }, [currentSuperHeroID]);
 
     useEffect(() => {
         setFavouriteList(favList => {
-            const newList = [...favList];
-            newList.push(currentSuperHeroID);
-            saveFavourite(newList);
+            const newList = new Set(favList);
+            if(newList.has(currentSuperHeroID)) {
+                newList.delete(currentSuperHeroID);
+            } else {
+                newList.add(currentSuperHeroID)
+            }
+            saveFavourite(Array.from(newList));
             return newList;
         });
-    }, [isFavorite])
-
-    const handleModalClose = () => {
-        setShowSuperHeroModal(false)
-    }
+    }, [isFavorite]);
 
     const handleModalSize = () => {
         setCurrentModalSize(modalSize => {
@@ -56,7 +51,7 @@ const SuperheroModal = () => {
             }
             return MODAL_SIZE.MID_SIZE
         })
-    }
+    };
 
     /*
         sm	640px	@media (min-width: 640px) { ... }
@@ -66,7 +61,7 @@ const SuperheroModal = () => {
         2xl	1536px  @media (min-width: 1536px) { ... }
     */
     return createPortal(
-        <div onClick={handleModalClose} style={{ backgroundColor: "rgba(0, 0, 0, 0.4)" }} className='fixed w-full h-full inset-0 flex justify-center items-center'>
+        <div onClick={() => setShowSuperHeroModal(false)} style={{ backgroundColor: "rgba(0, 0, 0, 0.4)" }} className='fixed w-full h-full inset-0 flex justify-center items-center'>
             <div onTouchEnd={e => e.stopPropagation()} onClick={e => e.stopPropagation()} className={`w-full h-[408px] ${currentModalSize === MODAL_SIZE.MID_SIZE ? "animate-height-full" : (currentModalSize === MODAL_SIZE.FULL_SIZE ? "animate-slide-in-half": "animate-height")} md:w-4/5 z-20 md:h-3/5 lg:h-3/5 xl:w-3/5 2xl:h-2/3 rounded-t-2xl bottom-0 md:top-0 md:m-auto absolute md: bg-zinc-800 flex flex-col p-4 md:rounded-2xl`}>
                 {/* Modal Header */}
                 <div className='w-full h-14 flex items-center justify-between'>

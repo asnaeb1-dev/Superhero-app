@@ -6,10 +6,11 @@ import { getSuperheroListBasedOnIDS } from '../../services/api';
 
 import { EMPTY_MESSAGE } from '../../utils/strings';
 import MessageBox from '../UIComponents/MessageBox/MessageBox';
+import SuperheroModal from '../UIComponents/SuperheroModal/SuperheroModal';
 
 const FavouritesScreen = () => {
     const [superheroIDList] = useState(new Set([...getFavourites()]));
-    const { mainSuperHeroList, setMainSuperHeroList, filterBoxState }  = useContext(SuperHeroAppContext);
+    const { mainSuperHeroList, setMainSuperHeroList, showSuperheroModal }  = useContext(SuperHeroAppContext);
     
     useEffect(() => {
         setMainSuperHeroList([]);
@@ -24,9 +25,10 @@ const FavouritesScreen = () => {
             {
                 superheroIDList?.size === 0 ?
                     <MessageBox message={EMPTY_MESSAGE} />
-                     :
+                    :
                     <Grid superheroList={mainSuperHeroList} />
             }
+            {showSuperheroModal ? <SuperheroModal /> : null }
         </div>
     )
 }

@@ -16,7 +16,6 @@ import { Link, useLocation } from 'react-router-dom';
 
 //styles
 import "../../styles/navbaranim.css"
-import { ClipLoader } from 'react-spinners';
 import { searchSuperHero } from '../../../services/api';
 
 /**
