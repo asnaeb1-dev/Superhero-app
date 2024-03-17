@@ -39,9 +39,9 @@ const GridItem = ({ title, value }) => {
 
     return(
         <div className='w-full flex flex-row justify-between items-center'>
-            <div className='flex flex-row gap-4'>
+            <div className='flex flex-row gap-4 items-center'>
                 {getIcons(title)}
-                <h1 className=' font-semibold'>{title}</h1>
+                <h1 className=' font-semibold sm:text-lg'>{title}</h1>
             </div>
             <div className='flex flex-row'>
                 <h1 className=' font-extrabold text-red-600'>{value}</h1>

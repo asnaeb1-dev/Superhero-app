@@ -15,12 +15,12 @@ export const BIOGRAPHY = "BIOGRAPHY";
 export const APPEARANCE = "APPEARANCE";
 export const CONNECTIONS = "CONNECTIONS";
 
-export const COMBAT = "COMBAT";
-export const INTELLIGENCE = "INTELLIGENCE";
-export const STRENGTH = "STRENGTH";
-export const POWER = "POWER";
-export const SPEED = "SPEED";
-export const DURABILITY = "DURABILITY";
+export const COMBAT = "Combat";
+export const INTELLIGENCE = "Intelligence";
+export const STRENGTH = "Strength";
+export const POWER = "Power";
+export const SPEED = "Speed";
+export const DURABILITY = "Durability";
 
 export const FULL_NAME = "Full name";
 export const FIRST_APPEARANCE = "First appearance";
@@ -28,17 +28,22 @@ export const ALTER_EGOS = "Alter egos";
 export const PUBLISHERS = "Publishers";
 export const PLACE_OF_BIRTH = "Place of birth";
 
-export const GENDER = "GENDER";
-export const RACE = "RACE";
-export const HEIGHT = "HEIGHT";
-export const WEIGHT = "WEIGHT";
-export const EYE_COLOR = "EYE-COLOR";
-export const HAIR_COLOR = "HAIR-COLOR";
+export const GENDER = "Gender";
+export const RACE = "Race";
+export const HEIGHT = "Height";
+export const WEIGHT = "Weight";
+export const EYE_COLOR = "Eye-Color";
+export const HAIR_COLOR = "Hair-Color";
 
 export const ALPHABET = "Alphabet";
 export const COUNT = "Count";
 export const PAGE = "Page";
 export const NEXT_TEXT = "Next"
+
+export const EMPTY_MESSAGE = "Nothing here yet :'(";
+
+export const PREVIOUS = "PREVIOUS";
+export const NEXT = "NEXT";
 
 export const MODAL_SIZE = {
     "CLOSED": 0,

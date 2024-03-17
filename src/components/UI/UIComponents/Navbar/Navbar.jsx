@@ -16,19 +16,15 @@ import { Link, useLocation } from 'react-router-dom';
 
 //styles
 import "../../styles/navbaranim.css"
-import { ClipLoader } from 'react-spinners';
 import { searchSuperHero } from '../../../services/api';
 
 /**
  * Things to fix:
- * 1) navbar animation improper
- * 2) try to make animation in classname itself
  * 3) add loader
- * 4) move search calls to navbar
  */
 
 const Navbar = () => {
-    const { searchText, setSearchText, isNavLinkMenuOpen, setNavLinkMenuOpen, isAutoSuggestOpen,setAutoSuggestOpen } = useContext(SuperHeroAppContext);
+    const { searchText, setSearchText, isNavLinkMenuOpen, setNavLinkMenuOpen, isAutoSuggestOpen,setAutoSuggestOpen, setCurrentNavItemState } = useContext(SuperHeroAppContext);
     const [isSearchBoxOpen, setSearchBoxOpen] = useToggle();
     const [isSearchResultsLoading, setSearchResultsLoading] = useToggle();
     const [searchResults, setSearchResults] = useState([]);
@@ -38,6 +34,26 @@ const Navbar = () => {
     const handleSearchClearButtonClick = () => {
         !isSearchBoxOpen ? setSearchBoxOpen() : searchText?.length > 0 ? setSearchText("") : setSearchBoxOpen();
     }
+
+    useEffect(() => {
+        switch(currentNavItem.pathname) {
+            case "/":
+                setCurrentNavItemState(NAV_LINK_SUPERHERO);
+                break;
+            
+            case "/about":
+                setCurrentNavItemState(NAV_LINK_ABOUT)
+                break;
+            
+            case "/favourite":
+                setCurrentNavItemState(NAV_LINK_FAVOURITES)
+                break;
+            
+            default:
+                setCurrentNavItemState(NAV_LINK_SUPERHERO)
+                break;
+        }
+    }, [currentNavItem])
 
     useEffect(() => {
         if(!searchText) return;
@@ -66,7 +82,7 @@ const Navbar = () => {
             </div>
 
             <div className='hidden flex-[2] justify-end sm:flex'>
-                <ul onClick={(e) => getNavItem(e.target.id)} className='flex flex-row text-white justify-between gap-5 font-bold text-lg lg:gap-10'>
+                <ul className='flex flex-row text-white justify-between gap-5 font-bold text-lg lg:gap-10'>
                     <li id='superhero_nav' className={currentNavItem.pathname === "/" ? "cursor-pointer text-red-600 underline underline-offset-8" :'cursor-pointer hover:text-red-600'}>
                         <Link to="/">{NAV_LINK_SUPERHERO}</Link>
                     </li>
@@ -104,7 +120,7 @@ const Navbar = () => {
                 </form>
                 {
                     searchText ?
-                        <AutoSuggestList superheroList={searchResults} />:
+                        <AutoSuggestList searchText={searchText} superheroList={searchResults} />:
                         null
                 }
             </div>
