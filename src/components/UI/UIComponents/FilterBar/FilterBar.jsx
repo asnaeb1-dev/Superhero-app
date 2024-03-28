@@ -14,14 +14,18 @@ const FilterBar = ({ filterTitle }) => {
             </div>
             {
                 currentNavItemState === NAV_LINK_SUPERHERO ?    
-                    <span className=' cursor-pointer' onTouchEnd={() => setModalState(true)} onClick={() => setModalState(true)}>
+                    <span
+                        className='cursor-pointer'
+                        // onTouchEnd={() => setModalState(true)}
+                        onClick={() => setModalState(true)}
+                    >
                         <LuFilter color='white' size={24} />
                     </span> :
                     null
             }
             {modalState ? <Modal /> : null}
         </div>
-    )
+    )              
 }
 
 export default FilterBar
