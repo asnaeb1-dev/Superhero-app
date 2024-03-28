@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { APPEARANCE, BIOGRAPHY, POWERSTATS } from '../../../../utils/strings'
+import { APPEARANCE, BIOGRAPHY, POWERSTATS } from '../../../../../../utils/strings'
 import AbilitiesTab from './TabContent/AbilitiesTab';
 import AppearanceTab from "./TabContent/AppearanceTab"
 import BiographyTab from "./TabContent/BiographyTab";

@@ -1,5 +1,5 @@
 import React from 'react'
-import { COMBAT, DURABILITY, INTELLIGENCE, POWER, SPEED, STRENGTH } from '../../../../../utils/strings'
+import { COMBAT, DURABILITY, INTELLIGENCE, POWER, SPEED, STRENGTH } from '../../../../../../../utils/strings'
 import { GiSwordsPower, GiBrain, GiBattleAxe, GiSpeedometer, GiMuscleUp  } from "react-icons/gi";
 import { VscWorkspaceTrusted } from "react-icons/vsc";
 

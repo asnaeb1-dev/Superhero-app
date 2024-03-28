@@ -2,10 +2,11 @@ import React, { useContext, useEffect, useState } from 'react'
 import { SuperHeroAppContext } from '../../Context/AppContext'
 import { getSuperheroList } from '../../services/api'
 import Grid from '../UIComponents/Grid/Grid'
-import SuperheroModal from '../UIComponents/SuperheroModal/SuperheroModal'
+import MainModal from '../UIComponents/Modal/MainModal'
+import SuperheroModalTemplate from '../UIComponents/Modal/ModalTemplates/SupeheroModalTemplate/SuperheroModalTemplate'
 
 const MainAppScreen = () => {
-    const { mainSuperHeroList, showSuperheroModal, setMainSuperHeroList, filterBoxState, setFilterBoxState } = useContext(SuperHeroAppContext)
+    const { mainSuperHeroList, setMainSuperHeroList, filterBoxState } = useContext(SuperHeroAppContext)
 
     useEffect(() => {
         setMainSuperHeroList([]);
@@ -24,7 +25,9 @@ const MainAppScreen = () => {
             {
                 <Grid superheroList={mainSuperHeroList}/>
             }
-            {showSuperheroModal ? <SuperheroModal /> : null }
+            <MainModal>
+                <SuperheroModalTemplate />
+            </MainModal>
         </div>
     )
 }

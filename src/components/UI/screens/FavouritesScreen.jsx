@@ -6,11 +6,12 @@ import { getSuperheroListBasedOnIDS } from '../../services/api';
 
 import { EMPTY_MESSAGE } from '../../utils/strings';
 import MessageBox from '../UIComponents/MessageBox/MessageBox';
-import SuperheroModal from '../UIComponents/SuperheroModal/SuperheroModal';
+import SuperheroModalTemplate from '../UIComponents/Modal/ModalTemplates/SupeheroModalTemplate/SuperheroModalTemplate';
+import MainModal from '../UIComponents/Modal/MainModal';
 
 const FavouritesScreen = () => {
     const [superheroIDList] = useState(new Set([...getFavourites()]));
-    const { mainSuperHeroList, setMainSuperHeroList, showSuperheroModal }  = useContext(SuperHeroAppContext);
+    const { mainSuperHeroList, setMainSuperHeroList }  = useContext(SuperHeroAppContext);
     
     useEffect(() => {
         setMainSuperHeroList([]);
@@ -28,7 +29,9 @@ const FavouritesScreen = () => {
                     :
                     <Grid superheroList={mainSuperHeroList} />
             }
-            {showSuperheroModal ? <SuperheroModal /> : null }
+            <MainModal type={"superhero"}>
+                <SuperheroModalTemplate />
+            </MainModal>
         </div>
     )
 }

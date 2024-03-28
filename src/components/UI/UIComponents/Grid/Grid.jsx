@@ -7,11 +7,12 @@ import SuperheroPlaceholder from "../../../../assets/superhero-alt.svg";
 
 const Grid = ({ superheroList }) => {
 
-    const { setCurrentSuperHeroID, setShowSuperHeroModal, modalState, filterBoxState } = useContext(SuperHeroAppContext);
+    const { setCurrentSuperHeroID, setShowSuperHeroModal, modalState, filterBoxState, isMainModalOpen, setMainModalOpen } = useContext(SuperHeroAppContext);
     const handleSuperHeroID = (id) => {
         const index = id.split("_");
         setCurrentSuperHeroID(index[index.length - 1]);
-        setShowSuperHeroModal(true)
+        // setShowSuperHeroModal(true)
+        setMainModalOpen(true)
     }
 
     return (

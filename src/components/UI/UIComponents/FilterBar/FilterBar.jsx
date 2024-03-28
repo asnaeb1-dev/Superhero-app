@@ -1,11 +1,12 @@
 import { useContext } from 'react'
 import { SuperHeroAppContext } from '../../../Context/AppContext';
-import Modal from '../SuperheroModal/Modal';
 import { LuFilter } from "react-icons/lu";
 import { NAV_LINK_SUPERHERO } from '../../../utils/strings';
+import FilterBoxTemplate from '../Modal/ModalTemplates/FilterBoxTemplate/FilterBoxTemplate';
+import MainModal from '../Modal/MainModal';
 
 const FilterBar = ({ filterTitle }) => {
-    const { modalState, setModalState, currentNavItemState } = useContext(SuperHeroAppContext);
+    const {setMainModalOpen, currentNavItemState } = useContext(SuperHeroAppContext);
     
     return (
         <div className='flex flex-row pb-2 sm:pb-0 items-center bg-zinc-900 justify-between'>
@@ -17,13 +18,15 @@ const FilterBar = ({ filterTitle }) => {
                     <span
                         className='cursor-pointer'
                         // onTouchEnd={() => setModalState(true)}
-                        onClick={() => setModalState(true)}
+                        onClick={() => setMainModalOpen(true)}
                     >
                         <LuFilter color='white' size={24} />
                     </span> :
                     null
             }
-            {modalState ? <Modal /> : null}
+            <MainModal>
+                <FilterBoxTemplate />
+            </MainModal>
         </div>
     )              
 }
