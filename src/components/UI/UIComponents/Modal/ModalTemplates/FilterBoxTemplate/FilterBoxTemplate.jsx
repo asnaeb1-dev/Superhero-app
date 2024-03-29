@@ -58,7 +58,7 @@ const FilterBoxTemplate = () => {
                     id="superhero_count"
                 >
                     {
-                        [...new Array(6)].map((item, index) => {
+                        [...new Array(6)].map((_, index) => {
                             return <option key={index} value={`${(index + 1) * 10}`}>{(index + 1)* 10}</option>
                         })
                     }
@@ -91,7 +91,9 @@ const FilterBoxTemplate = () => {
                 </span>
             </div>
             <div className='flex flex-row justify-end' onClick={() => setFilterBoxState(currentFilterBoxState)} onTouchEnd={() => setFilterBoxState(currentFilterBoxState)}>
-                <button onTouchEnd={() => setTimeout(() => setMainModalOpen(false), 300)} onClick={() => setTimeout(() => setMainModalOpen(false), 300)}>
+                <button
+                    onTouchEnd={() => setMainModalOpen(false)}
+                    onClick={() => setMainModalOpen(false)}>
                     <FaCheck color='red'/>
                 </button>
             </div>
