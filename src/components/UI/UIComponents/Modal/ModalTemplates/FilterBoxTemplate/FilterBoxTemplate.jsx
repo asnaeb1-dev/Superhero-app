@@ -1,11 +1,11 @@
 import React, { useContext, useState } from 'react'
 import { FaAngleDown, FaAngleUp, FaCheck } from "react-icons/fa";
-import { SuperHeroAppContext } from '../../../Context/AppContext';
+import { SuperHeroAppContext } from '../../../../../Context/AppContext';
 import { GrFormNextLink, GrFormPreviousLink  } from "react-icons/gr";
-import { ALPHABET, COUNT, NEXT, PAGE, PREVIOUS } from '../../../utils/strings';
+import { ALPHABET, COUNT, NEXT, PAGE, PREVIOUS } from '../../../../../utils/strings';
 
-const FilterBox = () => {
-    const { setModalState, filterBoxState, setFilterBoxState } = useContext(SuperHeroAppContext);
+const FilterBoxTemplate = () => {
+    const { filterBoxState, setFilterBoxState, setMainModalOpen } = useContext(SuperHeroAppContext);
     const [currentFilterBoxState, setCurrentFilterBoxState] = useState(filterBoxState);
 
     const handlePageMovement = (pageMovement = NEXT) => {
@@ -58,7 +58,7 @@ const FilterBox = () => {
                     id="superhero_count"
                 >
                     {
-                        [...new Array(6)].map((item, index) => {
+                        [...new Array(6)].map((_, index) => {
                             return <option key={index} value={`${(index + 1) * 10}`}>{(index + 1)* 10}</option>
                         })
                     }
@@ -91,7 +91,9 @@ const FilterBox = () => {
                 </span>
             </div>
             <div className='flex flex-row justify-end' onClick={() => setFilterBoxState(currentFilterBoxState)} onTouchEnd={() => setFilterBoxState(currentFilterBoxState)}>
-                <button onTouchEnd={() => setTimeout(() => setModalState(false), 300)} onClick={() => setTimeout(() => setModalState(false), 300)}>
+                <button
+                    onTouchEnd={() => setMainModalOpen(false)}
+                    onClick={() => setMainModalOpen(false)}>
                     <FaCheck color='red'/>
                 </button>
             </div>
@@ -99,4 +101,4 @@ const FilterBox = () => {
     )
 }
 
-export default FilterBox
+export default FilterBoxTemplate;

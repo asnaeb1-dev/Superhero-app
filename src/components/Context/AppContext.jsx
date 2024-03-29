@@ -6,14 +6,12 @@ const AppContext = ({ children }) => {
     const [searchText, setSearchText] = useState('');
     const [isAutoSuggestOpen, setAutoSuggestOpen] = useState(false)
     const [superHeroInfo, setSuperHeroInfo] = useState({});
-    const [showSuperheroModal, setShowSuperHeroModal] = useState(false)
     const [mainSuperHeroList, setMainSuperHeroList] = useState([])
     const [currentSuperHeroID, setCurrentSuperHeroID] = useState(-1);
     const [isFilterBoxOpen, setFilterBoxOpen] = useState(false);
     const [isNavLinkMenuOpen, setNavLinkMenuOpen] = useState(false);
     const [currentNavItemState, setCurrentNavItemState] = useState(NAV_ITEM_SUPERHERO);
-
-    const[modalState, setModalState] = useState(false)
+    const [isMainModalOpen, setMainModalOpen] = useState(false)
 
     const [filterBoxState, setFilterBoxState] = useState(
         {
@@ -28,14 +26,13 @@ const AppContext = ({ children }) => {
         searchText, setSearchText,
         isAutoSuggestOpen, setAutoSuggestOpen,
         superHeroInfo, setSuperHeroInfo,
-        showSuperheroModal, setShowSuperHeroModal,
         mainSuperHeroList, setMainSuperHeroList,
         currentSuperHeroID, setCurrentSuperHeroID,
         isFilterBoxOpen, setFilterBoxOpen,
-        modalState, setModalState,
         filterBoxState, setFilterBoxState,
         isNavLinkMenuOpen, setNavLinkMenuOpen,
-        currentNavItemState, setCurrentNavItemState
+        currentNavItemState, setCurrentNavItemState,
+        isMainModalOpen, setMainModalOpen
     }
     return (
         <SuperHeroAppContext.Provider value={state}>

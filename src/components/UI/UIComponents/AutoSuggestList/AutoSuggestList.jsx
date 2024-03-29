@@ -3,11 +3,11 @@ import { SuperHeroAppContext } from '../../../Context/AppContext'
 import "./autosuggestlist.css";
 
 const AutoSuggestList = ({ superheroList = [] }) => {
-    const { isAutoSuggestOpen, setAutoSuggestOpen, setShowSuperHeroModal, setCurrentSuperHeroID, searchText, setSearchText} = useContext(SuperHeroAppContext)
+    const { isAutoSuggestOpen, setAutoSuggestOpen, setCurrentSuperHeroID, searchText, setSearchText, setMainModalOpen} = useContext(SuperHeroAppContext)
 
     const handleSelect = id => {
         setAutoSuggestOpen(false)
-        setShowSuperHeroModal(true)
+        setMainModalOpen(true)
         setCurrentSuperHeroID(id);
         setSearchText(""); 
     }

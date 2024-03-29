@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { EYE_COLOR, GENDER, HAIR_COLOR, HEIGHT, RACE, WEIGHT } from '../../../../../utils/strings'
+import { EYE_COLOR, GENDER, HAIR_COLOR, HEIGHT, RACE, WEIGHT } from '../../../../../../../utils/strings'
 
 import { BsGenderAmbiguous } from "react-icons/bs";
 import { GiBodyHeight, GiWeightScale, GiMuscleUp } from "react-icons/gi";

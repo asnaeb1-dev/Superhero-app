@@ -1,5 +1,5 @@
 import React from 'react'
-import { ALTER_EGOS, FIRST_APPEARANCE, FULL_NAME, PLACE_OF_BIRTH, PUBLISHERS } from '../../../../../utils/strings'
+import { ALTER_EGOS, FIRST_APPEARANCE, FULL_NAME, PLACE_OF_BIRTH, PUBLISHERS } from '../../../../../../../utils/strings'
 
 const BiographyTab = ({ biographyData }) => {
     return(
