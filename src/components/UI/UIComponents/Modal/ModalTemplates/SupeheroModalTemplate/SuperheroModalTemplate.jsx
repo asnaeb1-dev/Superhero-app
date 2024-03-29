@@ -12,7 +12,7 @@ import { MODAL_SIZE, NEXT_TEXT } from '../../../../../utils/strings';
 import { getFavourites, saveFavourite } from '../../../../../services/storage';
 
 const SuperheroModalTemplate  = () => {
-    const { currentSuperHeroID, setCurrentSuperHeroID, setMainModalOpen } = useContext(SuperHeroAppContext);
+    const { currentSuperHeroID, setCurrentSuperHeroID, setMainModalOpen, isMainModalOpen } = useContext(SuperHeroAppContext);
     const [superheroData, setSuperheroData] = useState({});
 
     const [currentModalSize, setCurrentModalSize] = useState(MODAL_SIZE.CLOSED);
@@ -64,7 +64,7 @@ const SuperheroModalTemplate  = () => {
         <div
             onTouchEnd={e => e.stopPropagation()}
             onClick={e => e.stopPropagation()}
-            className={`w-full h-[408px] md:w-4/5 z-20 md:h-3/5 lg:h-3/5 xl:w-3/5 2xl:h-2/3 rounded-t-2xl bottom-0 md:top-1/2 md:left-1/2 md:-translate-x-1/2 md:-translate-y-1/2 absolute md: bg-zinc-800 flex flex-col p-4 md:rounded-2xl ${currentModalSize === MODAL_SIZE.MID_SIZE ? "animate-height-full" : (currentModalSize === MODAL_SIZE.FULL_SIZE ? "animate-slide-in-half": "animate-height")}`}
+            className={`w-full h-[408px] md:w-4/5 z-20 md:h-3/5 lg:h-3/5 xl:w-3/5 2xl:h-2/3 rounded-t-2xl bottom-0 md:top-1/2 md:left-1/2 md:-translate-x-1/2 md:-translate-y-1/2 absolute md: bg-zinc-800 flex flex-col p-4 md:rounded-2xl ${!isMainModalOpen ? "animate-height-full-to-reduce" : currentModalSize === MODAL_SIZE.MID_SIZE ? "animate-height-full" : (currentModalSize === MODAL_SIZE.FULL_SIZE ? "animate-slide-in-half": "animate-height")}`}
         >
             {/* Modal Header */}
             <div className='w-full h-14 flex items-center justify-between'>

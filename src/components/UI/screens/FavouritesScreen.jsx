@@ -11,7 +11,7 @@ import MainModal from '../UIComponents/Modal/MainModal';
 
 const FavouritesScreen = () => {
     const [superheroIDList] = useState(new Set([...getFavourites()]));
-    const { mainSuperHeroList, setMainSuperHeroList }  = useContext(SuperHeroAppContext);
+    const { mainSuperHeroList, setMainSuperHeroList, isMainModalOpen, setMainModalOpen }  = useContext(SuperHeroAppContext);
     
     useEffect(() => {
         setMainSuperHeroList([]);
@@ -29,7 +29,7 @@ const FavouritesScreen = () => {
                     :
                     <Grid superheroList={mainSuperHeroList} />
             }
-            <MainModal type={"superhero"}>
+            <MainModal isOpen={isMainModalOpen} closeModal={() => setMainModalOpen(false)}>
                 <SuperheroModalTemplate />
             </MainModal>
         </div>

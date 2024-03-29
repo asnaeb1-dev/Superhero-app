@@ -6,8 +6,8 @@ import FilterBoxTemplate from '../Modal/ModalTemplates/FilterBoxTemplate/FilterB
 import MainModal from '../Modal/MainModal';
 
 const FilterBar = ({ filterTitle }) => {
-    const {setMainModalOpen, currentNavItemState } = useContext(SuperHeroAppContext);
-    
+    const {isFilterBoxOpen, setFilterBoxOpen, currentNavItemState } = useContext(SuperHeroAppContext);
+
     return (
         <div className='flex flex-row pb-2 sm:pb-0 items-center bg-zinc-900 justify-between'>
             <div className='flex flex-row sm:hidden'>
@@ -17,14 +17,13 @@ const FilterBar = ({ filterTitle }) => {
                 currentNavItemState === NAV_LINK_SUPERHERO ?    
                     <span
                         className='cursor-pointer'
-                        // onTouchEnd={() => setModalState(true)}
-                        onClick={() => setMainModalOpen(true)}
+                        onClick={() => setFilterBoxOpen(true)}
                     >
                         <LuFilter color='white' size={24} />
                     </span> :
                     null
             }
-            <MainModal>
+            <MainModal isOpen={isFilterBoxOpen} closeModal={() => setFilterBoxOpen(false)}>
                 <FilterBoxTemplate />
             </MainModal>
         </div>
