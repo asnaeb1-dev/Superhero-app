@@ -8,16 +8,20 @@ import { EMPTY_MESSAGE } from '../../utils/strings';
 import MessageBox from '../UIComponents/MessageBox/MessageBox';
 import SuperheroModalTemplate from '../UIComponents/Modal/ModalTemplates/SupeheroModalTemplate/SuperheroModalTemplate';
 import MainModal from '../UIComponents/Modal/MainModal';
+import Loader from '../UIComponents/Modal/ModalTemplates/Loader/Loader';
 
 const FavouritesScreen = () => {
     const [superheroIDList] = useState(new Set([...getFavourites()]));
     const { mainSuperHeroList, setMainSuperHeroList, isMainModalOpen, setMainModalOpen }  = useContext(SuperHeroAppContext);
-    
+    const [isLoading, setLoading] = useState(false);
+
     useEffect(() => {
         setMainSuperHeroList([]);
+        setLoading(true);
         (async() => {
             const result = await getSuperheroListBasedOnIDS(superheroIDList);
             setMainSuperHeroList(result)
+            setLoading(false);
         })()
     }, [superheroIDList])
 
@@ -29,8 +33,14 @@ const FavouritesScreen = () => {
                     :
                     <Grid superheroList={mainSuperHeroList} />
             }
-            <MainModal isOpen={isMainModalOpen} closeModal={() => setMainModalOpen(false)}>
+            <MainModal
+                isOpen={isMainModalOpen}
+                closeModal={() => setMainModalOpen(false)}
+            >
                 <SuperheroModalTemplate />
+            </MainModal>
+            <MainModal isOpen={isLoading}>
+                <Loader />
             </MainModal>
         </div>
     )

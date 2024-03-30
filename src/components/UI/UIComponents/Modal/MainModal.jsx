@@ -6,7 +6,7 @@ const MainModal = ({ children, isOpen, closeModal }) => {
     if(!isOpen) return null;
     return createPortal(
         <>
-            <div onClick={() => closeModal(false)} style={{ backgroundColor: "rgba(0, 0, 0, 0.4)" }} className='fixed w-full h-full inset-0'></div>
+            <div onClick={() => closeModal(false)} style={{ backgroundColor: "rgba(0, 0, 0, 0.7)" }} className='fixed w-full h-full inset-0'></div>
             {children}
         </>,
         modalRoot

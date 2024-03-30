@@ -18,10 +18,10 @@ const SuperHeroTab = ({ superheroInfo }) => {
                 >
                     {POWERSTATS}
                 </p>
-                <p  onClick={e => setSuperHeroTabState(e.target.id)} id={APPEARANCE} className={`${superheroTabState !== APPEARANCE ? "font-bold" : "overline text-red-600"} cursor-pointer hover:text-red-600 overline-offset-8 font-bold decoration-2 decoration-red-600`}>{APPEARANCE}</p>
-                <p  onClick={e => setSuperHeroTabState(e.target.id)} id={BIOGRAPHY} className={`${superheroTabState !== BIOGRAPHY ? "font-bold" : "overline text-red-600"} cursor-pointer hover:text-red-600 overline-offset-8 font-bold decoration-2 decoration-red-600`}>{BIOGRAPHY}</p>
+                <p onClick={e => setSuperHeroTabState(e.target.id)} id={APPEARANCE} className={`${superheroTabState !== APPEARANCE ? "font-bold" : "overline text-red-600"} cursor-pointer hover:text-red-600 overline-offset-8 font-bold decoration-2 decoration-red-600`}>{APPEARANCE}</p>
+                <p onClick={e => setSuperHeroTabState(e.target.id)} id={BIOGRAPHY} className={`${superheroTabState !== BIOGRAPHY ? "font-bold" : "overline text-red-600"} cursor-pointer hover:text-red-600 overline-offset-8 font-bold decoration-2 decoration-red-600`}>{BIOGRAPHY}</p>
             </div>
-            <div className='w-full mt-4 overflow-y-scroll md:overflow-y-hidden md:mt-4'>
+            <div className='w-full mt-4 overflow-y-auto h-3/5 md:mt-4'>
                 {
                     superheroTabState === POWERSTATS ? 
                         <AbilitiesTab powerstats={superheroInfo?.powerstats} /> : 

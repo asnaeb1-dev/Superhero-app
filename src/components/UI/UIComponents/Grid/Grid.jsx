@@ -65,9 +65,9 @@ const GridItem = ({ superheroImage, superheroName, superheroRealName, superheroI
                 <div className='flex-1 p-4'> 
                     <FaInfoCircle onMouseEnter={() => setMouseEnter(true)} onMouseLeave={() => setMouseEnter(false)} size={23} color={mouseEnter ? 'rgb(220 38 38)' : 'white' } />
                 </div>
-                <div ref={gridItemRef} className={`w-full flex flex-col ${mouseEnter ? 'h-4/5' : `animate-height-down-pop`} rounded-t-xl p-4 bg-black bg-opacity-50`}>
-                    <h1 className='text-white font-extrabold xl:text-2xl'>{superheroName}</h1>
-                    <h1 className={superheroRealName ? ' text-red-600 font-semibold':"opacity-0"}>{superheroRealName ? superheroRealName : "random"}</h1>
+                <div ref={gridItemRef} className={`w-full flex flex-col ${mouseEnter ? 'h-4/5' : `animate-height-down-pop`} rounded-xl p-4 bg-black bg-opacity-50`}>
+                    <h1 className='text-white font-extrabold xl:text-2xl overflow-hidden text-ellipsis whitespace-nowrap'>{superheroName}</h1>
+                    <h1 className={' text-red-600 font-semibold text-sm overflow-hidden text-ellipsis whitespace-nowrap'}>{superheroRealName ? superheroRealName : superheroName}</h1>
                     {
                         mouseEnter ? <QuickInfoBox superheroPowerStats={superheroPowerStats} /> : null
                     }

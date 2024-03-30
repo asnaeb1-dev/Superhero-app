@@ -13,6 +13,7 @@ import { SuperHeroAppContext } from "../../../Context/AppContext"
 import useToggle from "../../../CustomHooks/useToggle"
 import Menu from '../Menu/Menu';
 import { Link, useLocation } from 'react-router-dom';
+import { Oval } from 'react-loader-spinner';
 
 //styles
 import "../../styles/navbaranim.css"
@@ -26,7 +27,7 @@ import { searchSuperHero } from '../../../services/api';
 const Navbar = () => {
     const { searchText, setSearchText, isNavLinkMenuOpen, setNavLinkMenuOpen, isAutoSuggestOpen,setAutoSuggestOpen, setCurrentNavItemState } = useContext(SuperHeroAppContext);
     const [isSearchBoxOpen, setSearchBoxOpen] = useToggle();
-    const [isSearchResultsLoading, setSearchResultsLoading] = useToggle();
+    const [isSearchResultsLoading, setSearchResultsLoading] = useState(false);
     const [searchResults, setSearchResults] = useState([]);
 
     const currentNavItem = useLocation();
@@ -57,6 +58,7 @@ const Navbar = () => {
 
     useEffect(() => {
         if(!searchText) return;
+        setSearchResultsLoading(true)
         const searchTimer = setTimeout(() => {
             (async() => {
                 const searchResponse = await searchSuperHero(searchText);
@@ -64,6 +66,7 @@ const Navbar = () => {
                 if(!isAutoSuggestOpen) {
                     setAutoSuggestOpen(true);
                 }
+                setSearchResultsLoading(false);
             })()
         }, 300)
         return () => clearTimeout(searchTimer);
@@ -86,9 +89,9 @@ const Navbar = () => {
                     <li id='superhero_nav' className={currentNavItem.pathname === "/" ? "cursor-pointer text-red-600 underline underline-offset-8" :'cursor-pointer hover:text-red-600'}>
                         <Link to="/">{NAV_LINK_SUPERHERO}</Link>
                     </li>
-                    <li id='about_nav' className={currentNavItem.pathname === "/about" ? "cursor-pointer text-red-600 underline underline-offset-8" :'cursor-pointer hover:text-red-600'}>
+                    {/* <li id='about_nav' className={currentNavItem.pathname === "/about" ? "cursor-pointer text-red-600 underline underline-offset-8" :'cursor-pointer hover:text-red-600'}>
                         <Link to="/about">{NAV_LINK_ABOUT}</Link>
-                    </li>
+                    </li> */}
                     <li id='fav_nav' className={currentNavItem.pathname === "/favourite" ? "cursor-pointer text-red-600 underline underline-offset-8" :'cursor-pointer hover:text-red-600'}>
                         <Link to="/favourite">{NAV_LINK_FAVOURITES}</Link>
                     </li>
@@ -98,9 +101,16 @@ const Navbar = () => {
             <div className={`flex flex-col justify-end relative w-full sm:w-auto ${isSearchBoxOpen ? 'animate-slide-left' : (searchText?.length > 0 ? '' : 'animate-slide-right')}`}>
                 <form id="search-form" className={`border-2 border-white ${searchText.length === 0 ? "rounded-2xl" : "rounded-t-2xl"} px-4 py-2 flex flex-row justify-between ${isSearchResultsLoading ? "gap-2" : ''}`} onSubmit={e => (e.preventDefault())}>
                     <div className='flex flex-row w-full gap-2'>
-                        {
-                            isSearchResultsLoading && <ClipLoader color='rgb(220 38 38)' size={15} className='mt-1' />
-                        }
+                        <Oval
+                            visible={isSearchResultsLoading}
+                            height="20"
+                            width="20"
+                            color="rgb(220 38 38)"
+                            secondaryColor='rgba(220 38 38, 0.5)'
+                            ariaLabel="oval-loading"
+                            wrapperStyle={{}}
+                            wrapperClass=""
+                        />
                         <input
                             onChange={e => (setSearchText(e.target.value))}
                             value={searchText}
