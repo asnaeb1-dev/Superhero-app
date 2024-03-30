@@ -47,10 +47,10 @@ const GridItem = ({ title, value }) => {
         <div className='w-full flex flex-row justify-between items-center'>
             <div className='flex flex-row gap-3 items-center'>
                 {getIcons(title)}
-                <h1 className=' font-semibold'>{title}</h1>
+                <h1 className=' font-semibold sm:text-lg'>{title}</h1>
             </div>
             <div className='flex flex-row items-center gap-2'>
-                <h1 className=' font-extrabold text-red-600'>{title === HEIGHT || title === WEIGHT ? value[swapMetric] : value}</h1>
+                <h1 className=' font-extrabold text-red-600 sm:text-lg'>{title === HEIGHT || title === WEIGHT ? value[swapMetric] : value}</h1>
                 {
                     title === HEIGHT || title === WEIGHT ?
                     <span onClick={() => setSwapMetric(swapMetric => swapMetric === 0 ? 1 : 0)} className='bg-white rounded-full cursor-pointer'>

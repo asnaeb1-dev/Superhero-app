@@ -50,9 +50,7 @@ const SuperheroModalTemplate  = () => {
             return MODAL_SIZE.MID_SIZE
         })
     };
-    // top: 50%;
-    // left: 50%;
-    // transform: translate(-50%, -50%);
+
     /*
         sm	640px	@media (min-width: 640px) { ... }
         md	768px	@media (min-width: 768px) { ... }

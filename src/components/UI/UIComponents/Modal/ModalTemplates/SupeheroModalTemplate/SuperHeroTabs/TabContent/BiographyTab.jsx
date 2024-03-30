@@ -3,7 +3,7 @@ import { ALTER_EGOS, FIRST_APPEARANCE, FULL_NAME, PLACE_OF_BIRTH, PUBLISHERS } f
 
 const BiographyTab = ({ biographyData }) => {
     return(
-        <div className='w-full flex flex-col px-[10px] gap-5'>
+        <div className='w-full flex flex-col px-[10px] gap-7 sm:text-lg'>
             <span className='flex flex-row gap-4'>
                 <h1 className=' font-semibold text-stone-400'>{FULL_NAME}:</h1>
                 <h1 className=' font-bold'>{biographyData["full-name"]}</h1>
