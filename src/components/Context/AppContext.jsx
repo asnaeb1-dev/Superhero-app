@@ -11,7 +11,7 @@ const AppContext = ({ children }) => {
     const [isFilterBoxOpen, setFilterBoxOpen] = useState(false);
     const [isNavLinkMenuOpen, setNavLinkMenuOpen] = useState(false);
     const [currentNavItemState, setCurrentNavItemState] = useState(NAV_ITEM_SUPERHERO);
-    const [isMainModalOpen, setMainModalOpen] = useState(false)
+    const [isMainModalOpen, setMainModalOpen] = useState(false);
 
     const [filterBoxState, setFilterBoxState] = useState(
         {
@@ -32,7 +32,7 @@ const AppContext = ({ children }) => {
         filterBoxState, setFilterBoxState,
         isNavLinkMenuOpen, setNavLinkMenuOpen,
         currentNavItemState, setCurrentNavItemState,
-        isMainModalOpen, setMainModalOpen
+        isMainModalOpen, setMainModalOpen,
     }
     return (
         <SuperHeroAppContext.Provider value={state}>

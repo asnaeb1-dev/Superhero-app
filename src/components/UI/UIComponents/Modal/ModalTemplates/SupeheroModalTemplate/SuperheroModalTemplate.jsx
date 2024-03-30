@@ -30,17 +30,25 @@ const SuperheroModalTemplate  = () => {
     }, [currentSuperHeroID]);
 
     useEffect(() => {
-        setFavouriteList(favList => {
-            const newList = new Set(favList);
-            if(newList.has(currentSuperHeroID)) {
-                newList.delete(currentSuperHeroID)
-            } else {
+        if(isFavorite) {
+            setFavouriteList(favList => {
+                const newList = new Set(favList);
                 newList.add(currentSuperHeroID);
-            }
-            saveFavourite(Array.from(newList));
-            return newList;
-        });
+                return newList;
+            });
+        } else {
+            setFavouriteList(favList => {
+                const newList = new Set(favList);
+                newList.delete(currentSuperHeroID);
+                return newList;
+            });
+        }
+        
     }, [isFavorite]);
+
+    useEffect(() => {
+        saveFavourite(Array.from(favouriteList));
+    }, [favouriteList])
 
     const handleModalSize = () => {
         setCurrentModalSize(modalSize => {

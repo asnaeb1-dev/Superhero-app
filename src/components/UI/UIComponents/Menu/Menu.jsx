@@ -18,14 +18,14 @@ const Menu = () => {
                 </Link>
                 <div className='w-[80%] h-[1px] bg-white'></div>
             </div>
-            <div className=' w-full flex flex-col items-center gap-4'>
+            {/* <div className=' w-full flex flex-col items-center gap-4'>
                 <Link className='pt-4' to="/about">
                     <h1 className={`text-2xl  font-semibold px-4 ${currentNavItem.pathname === "/about" ? "text-red-600" : "text-white"} `}>
                         {NAV_LINK_ABOUT}
                     </h1>
                 </Link>
                 <div className='w-[80%] h-[1px] bg-white'></div>
-            </div>
+            </div> */}
             <div className=' w-full flex flex-col items-center gap-4'>
                 <Link className='pt-4' to="/favourite">
                     <h1 className={`text-2xl  font-semibold px-4 ${currentNavItem.pathname === "/favourite" ? "text-red-600" : "text-white"} `}>
