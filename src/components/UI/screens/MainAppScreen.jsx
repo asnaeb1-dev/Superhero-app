@@ -21,7 +21,7 @@ const MainAppScreen = () => {
     }, [filterBoxState?.count, filterBoxState?.currentAlphabet, filterBoxState?.pageNumber]);
 
     return (
-        <div className=' bg-zinc-900 w-full h-[calc(100vh_-_160px)] sm:h-[calc(100vh_-_74px)] overflow-y-scroll'>
+        <div className=' bg-zinc-900 w-full h-[calc(100dvh_-_160px)] sm:h-[calc(100vh_-_74px)] overflow-y-scroll'>
             { <Grid superheroList={mainSuperHeroList}/> }
             <MainModal isOpen={isMainModalOpen} closeModal={() => setMainModalOpen(false)}>
                 <SuperheroModalTemplate />
